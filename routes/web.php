@@ -1,22 +1,24 @@
 <?php
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('about', function () {
-    return view('about');
+    return view('pages.about');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
+Route::get('contact', function () {
+    return view('pages.contact');
+});
 */
+
+Route::get('/student', 'PagesController@student');
+Route::get('/field',   'PagesController@field');
+Route::get('/academic', 'PagesController@academic');
+Route::get('/departmental', 'PagesController@departmental');
+Route::get('/regional',   'PagesController@regional');
+Route::get('/overrall',   'PagesController@overrall');
+
 
 
