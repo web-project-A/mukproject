@@ -7,22 +7,22 @@ use Illuminate\Http\Request;
 class PagesController extends Controller
 {
     public function student(){
-    	return view('pages.student');
+    	return view('Student.student');
     }
     public function field(){
-    	return view('pages.field');
+    	return view('Field.field');
     }
     public function academic(){
-    	return view('pages.academic');
+    	return view('Academic.academic');
     }
-    public function departmental(){
-    	return view('pages.departmental');
+    public function department(){
+    	return view('Department.department');
     }
     public function regional(){
-    	return view('pages.regional');
+    	return view('Regional.regional');
     }
     public function overrall(){
-    	return view('pages.overrall');
+    	return view('Overrall.overrall');
     }
     
 }

@@ -16,7 +16,7 @@ Route::get('contact', function () {
 Route::get('/student', 'PagesController@student');
 Route::get('/field',   'PagesController@field');
 Route::get('/academic', 'PagesController@academic');
-Route::get('/departmental', 'PagesController@departmental');
+Route::get('/department', 'PagesController@department');
 Route::get('/regional',   'PagesController@regional');
 Route::get('/overrall',   'PagesController@overrall');
 
