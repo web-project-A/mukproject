@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -29,7 +30,43 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo;
+
+    public function redirectTo()
+    {
+        switch(Auth::user()->role){
+            case 2:
+            $this->redirectTo = '/Regional';
+            return $this->redirectTo;
+                break;
+            case 4:
+                    $this->redirectTo = '/Academic';
+                return $this->redirectTo;
+                break;
+            case 3:
+                $this->redirectTo = '/Department';
+                return $this->redirectTo;
+                break;
+            case 5:
+                    $this->redirectTo = '/Field';
+                return $this->redirectTo;
+                break;
+            case 6:
+                $this->redirectTo = '/Student';
+                return $this->redirectTo;
+                break;
+            case 1:
+                $this->redirectTo = '/Overall';
+                return $this->redirectTo;
+                break;
+            default:
+                $this->redirectTo = '/login';
+                return $this->redirectTo;
+        }
+         
+        // return $next($request);
+    } 
+
 
     /**
      * Create a new controller instance.
