@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+        	.st{
+        		color: green;
+        	}
+        </style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Admin Dashboard</div>
+                <div class="panel-heading"><h2 class="st">Overall Internship Coordinator Dashboard</h2></div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -13,8 +18,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    This is Overall Internship Coordinator Dashboard. You must be privileged to be here !
+                    <p>Welcome, this is the the Overall Internship Coordinator Dashboard.</p>
+                     You must be privileged to be here !
                 </div>
             </div>
         </div>
