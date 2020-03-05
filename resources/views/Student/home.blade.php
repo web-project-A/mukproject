@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.stud')
 
 @section('content')
 <style type="text/css">
