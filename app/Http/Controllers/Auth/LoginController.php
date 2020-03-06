@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 
+
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -63,9 +67,19 @@ class LoginController extends Controller
                 $this->redirectTo = '/login';
                 return $this->redirectTo;
         }
-         
+
         // return $next($request);
-    } 
+    }
+
+
+
+    function authenticated(Request $request, $user)
+    {
+        $user->update([
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp()
+        ]);
+    }
 
 
     /**

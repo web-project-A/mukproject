@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('layouts.overoll')
 
 @section('content')
 <style type="text/css">
