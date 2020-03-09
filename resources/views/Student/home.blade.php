@@ -1,4 +1,6 @@
+
 @extends('layouts.stud')
+
 
 @section('content')
 <style type="text/css">
@@ -19,7 +21,7 @@
                         </div>
                     @endif
                     <p>Welcome, this is the the Student Dashboard.</p>
-                     You must be privileged to be here !
+                     You must be privileged to be here!
                 </div>
             </div>
         </div>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use Auth;
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -30,6 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
+
     protected $redirectTo;
 
     public function redirectTo()
@@ -66,7 +69,6 @@ class RegisterController extends Controller
          
         // return $next($request);
     } 
-
 
     /**
      * Create a new controller instance.
