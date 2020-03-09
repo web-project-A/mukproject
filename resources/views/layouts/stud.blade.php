@@ -53,7 +53,7 @@
           <span>INTERNSHIP UPLOADS</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-8 collapse-inner rounded">
+          <div class="bg-dark py-8 collapse-inner rounded">
             <a class="collapse-item" href="#">Placement Letter</a>
             <a class="collapse-item" href="#">Placement Details</a>
           </div>
@@ -66,7 +66,7 @@
           <span>FILL IN</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+          <div class="bg-dark py-2 collapse-inner rounded">
             <a class="collapse-item" href="#">Daily Journal</a>
             <a class="collapse-item" href="#">Challenges</a>
             <a class="collapse-item" href="#">Internship Details</a>

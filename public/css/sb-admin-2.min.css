@@ -2401,8 +2401,8 @@ fieldset:disabled a.btn {
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #FF8C00;
-    border-color: #FF8C00
+    background-color: rgb(58, 128, 52);
+    border-color: rgb(58, 128, 52)
 }
 
 .btn-primary.focus,
@@ -6569,7 +6569,7 @@ button.bg-light:hover {
 }
 
 .bg-dark {
-    background-color: #5a5c69!important
+    background-color: #c8cce6!important
 }
 
 a.bg-dark:focus,
@@ -6580,6 +6580,7 @@ button.bg-dark:hover {
 }
 
 .bg-white {
+    color: #d3d5e0;
     background-color: #a83332!important
 }
 
