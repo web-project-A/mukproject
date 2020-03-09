@@ -1,23 +1,29 @@
-@extends('layouts.app')
+@extends('layouts.register')
 
 @section('content')
+<style type="text/css">
+        	.st{
+        		color: green;
+        	}
+        </style>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h2 class="st">Registration Dashboard</h2></div>
 
-                <div class="card-body">
+                <div class="panel-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    <p>Welcome, this is the the Registration Dashboard.</p>
+                     Your Registration will be Confirmed within no time, sit tight!
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
