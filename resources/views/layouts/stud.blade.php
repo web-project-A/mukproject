@@ -36,14 +36,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
-          <span>Register</span></a>
-      </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
 
       <!-- Heading -->
 
@@ -196,6 +189,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/users">
+                                        {{ __('Update Profile') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
