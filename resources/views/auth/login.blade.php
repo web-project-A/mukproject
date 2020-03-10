@@ -7,7 +7,18 @@
         <div class="crow-md-8">
             <div class="">
             <span class="login100-form-title p-b-32">
-                <div class="card-header">{{ __(' LOGIN') }}</div>
+
+                <img class="image" src="/images/index.jpeg">
+                <style>
+                    .card-header{
+                        color:blue;
+                        text-align: center;
+                    }
+                    .image{
+                       padding-left: 60px;
+                    }
+                </style>
+                <div class="card-header">{{ __(' MAKERERE UNIVERSITY INTERNSHIP SYSTEM') }}</div>
             </span>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
