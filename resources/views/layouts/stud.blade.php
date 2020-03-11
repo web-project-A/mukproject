@@ -49,7 +49,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-dark py-8 collapse-inner rounded">
             <a class="collapse-item" href="#">Placement Letter</a>
-          <a class="collapse-item" href="/Placement">Placement Details</a>
+          <a class="collapse-item" href="/Student/placementDetails">Placement Details</a>
           </div>
         </div>
       </li>
