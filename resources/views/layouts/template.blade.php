@@ -48,12 +48,20 @@
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
+                    <img class="image" src="/images/index.jpeg" >
+                <style>
+                    .image{
+                       width: 20%;
+                     margin-right: 150px;
+                    }
+                </style>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
+
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))

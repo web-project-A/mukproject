@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class FieldController extends Controller
+class PlacementController extends Controller
 {
-
-
     public function index()
     {
-        return view('Field.home');
+        return view('Student.placement');
     }
 }

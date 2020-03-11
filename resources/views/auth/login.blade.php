@@ -11,11 +11,12 @@
                 <img class="image" src="/images/index.jpeg">
                 <style>
                     .card-header{
-                        color:blue;
+                        color:maroon;
                         text-align: center;
                     }
                     .image{
-                       padding-left: 60px;
+                       padding-left: 140px;
+                       width: 65%;
                     }
                 </style>
                 <div class="card-header">{{ __(' MAKERERE UNIVERSITY INTERNSHIP SYSTEM') }}</div>

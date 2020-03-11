@@ -30,7 +30,7 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Student">
-        <div class="sidebar-brand-text mx-3"> <h1>MUK</h1> </div>
+        <div class="sidebar-brand-text mx-3"> <h1>Muk</h1> </div>
       </a>
 
       <!-- Divider -->
@@ -51,7 +51,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-dark py-8 collapse-inner rounded">
             <a class="collapse-item" href="#">Placement Letter</a>
-          <a class="collapse-item" href="/Placement">Placement Details</a>
+            <a class="collapse-item" href="#">Placement Details</a>
           </div>
         </div>
       </li>
@@ -217,7 +217,7 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
+
 
           <main class="">
             @yield('content')

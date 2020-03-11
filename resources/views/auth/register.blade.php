@@ -7,7 +7,14 @@
         <div class="row-md-8">
             <div class="">
             <span class="login100-form-title p-b-32">
-                <div class="card-header">{{ __('Register') }}</div>
+
+                <div class="card-header">{{ __('Register') }} </div>
+                <style>
+                .card-header{
+                    color: maroon;
+                }
+                ]
+                </style>
             </span>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
