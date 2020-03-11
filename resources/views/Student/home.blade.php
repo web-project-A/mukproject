@@ -1,7 +1,7 @@
 
 @extends('layouts.stud')
 
-
+@section('title', 'Student')
 @section('content')
 <style type="text/css">
         	.st{
