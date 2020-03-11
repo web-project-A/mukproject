@@ -38,6 +38,9 @@ Route::get('/Academic', 'AcademicController@index');
 Route::get('/Field', 'FieldController@index');
 Route::get('/Student', 'StudentController@index');
 
+Route::post('/Studentplacement', 'StudentController@placement');
+Route::post('/Studentorg', 'StudentController@org');
+
 
 
 
