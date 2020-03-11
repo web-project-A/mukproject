@@ -8,16 +8,13 @@
             <div class="">
             <span class="login100-form-title p-b-32">
 
-                <img class="image" src="/images/index.jpeg">
+
                 <style>
                     .card-header{
                         color:maroon;
                         text-align: center;
                     }
-                    .image{
-                       padding-left: 140px;
-                       width: 65%;
-                    }
+
                 </style>
                 <div class="card-header">{{ __(' MAKERERE UNIVERSITY INTERNSHIP SYSTEM') }}</div>
             </span>

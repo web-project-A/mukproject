@@ -33,7 +33,7 @@ Route::get('/Department', 'DepartmentController@index');
 Route::get('/Academic', 'AcademicController@index');
 Route::get('/Field', 'FieldController@index');
 Route::get('/Student', 'StudentController@index');
-Route::get('/Placement', 'PlacementController@index');
+
 
 
 
