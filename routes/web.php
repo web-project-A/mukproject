@@ -24,6 +24,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/users', 'UserController@edit');
+Route::post('/users/update', 'UserController@update');
+
 Route::get('/Overall', 'OverallController@index');
 Route::get('/Regional', 'RegionalController@index');
 Route::get('/Department', 'DepartmentController@index');

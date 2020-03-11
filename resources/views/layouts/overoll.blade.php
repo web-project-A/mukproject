@@ -154,6 +154,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/users">
+                                        {{ __('Update Profile') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
