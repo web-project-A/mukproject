@@ -8,6 +8,7 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        return view('Department.home');
+            return view('Department.home');
+
     }
 }

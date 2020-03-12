@@ -20,6 +20,10 @@ Route::get('/', function () {
 //    return view('layouts.stud');
 //});
 
+Route::get('/Student/placementDetails', function () {
+    return view('Student.placementDetails');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -33,6 +37,12 @@ Route::get('/Department', 'DepartmentController@index');
 Route::get('/Academic', 'AcademicController@index');
 Route::get('/Field', 'FieldController@index');
 Route::get('/Student', 'StudentController@index');
+
+
+
+Route::post('/Studentplacement', 'StudentController@placement');
+Route::post('/Studentorg', 'StudentController@org');
+
 
 
 
