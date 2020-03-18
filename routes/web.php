@@ -23,6 +23,13 @@ Route::get('/', function () {
 Route::get('/Student/placementDetails', function () {
     return view('Student.placementDetails');
 });
+Route::get('/Student/InternshipDetails', function () {
+    return view('Student.internshipDetails');
+});
+Route::get('/Student/placementletter', function () {
+    return view('Student.placementletter');
+});
+
 
 Auth::routes();
 
@@ -42,6 +49,8 @@ Route::get('/Student', 'StudentController@index');
 
 Route::post('/Studentplacement', 'StudentController@placement');
 Route::post('/Studentorg', 'StudentController@org');
+Route::post('/Studentinternshipdetails', 'StudentController@internship');
+Route::post('/placementletter', 'StudentController@upload');
 
 
 

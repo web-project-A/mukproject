@@ -50,9 +50,31 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
+                            <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
                             <div class="col-md-6">
+
+                                <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode" autofocus>
+                                      <option value="+256">+256</option>
+                                      <option value="+254">+254</option>
+                                      <option value="+257">+255</option>
+                                      <option value="+253">+250</option>
+                                      <option value="+253">+263</option>
+                                      <option value="+253">+258</option>
+                                      <option value="+253">+248</option>
+                                      <option value="+253">+257</option>
+                                      <option value="+253">+20</option>
+                                      <option value="+253">+233</option>
+                                      <option value="+253">+234</option>
+                                      <option value="+253">+211</option>
+                                      <option value="+253">+27</option>
+                                      <option value="+253">+221</option>
+                                      <option value="+253">+237</option>
+                                      <option value="+253">+267</option>
+                                      <option value="+253">+244</option>
+                                      <option value="+253">+86</option>
+                                      <option value="+253">+91</option>
+                                    </select>
                                 <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
 
                                 @error('number')

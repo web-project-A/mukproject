@@ -4,16 +4,6 @@
 
 @section('content')
 <div class="container">
-    <style>
-    .form1{
-       float:left;
-       margin-left:40px;
-    }
-    .form2{
-       float:right;
-       margin-right:150px;
-    }
-    </style>
 
     <div class="form1">
         <div class="card">
