@@ -30,7 +30,11 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Student">
+<<<<<<< HEAD
         <div class="sidebar-brand-text mx-3"> <h1>MUK</h1> </div>
+=======
+        <div class="sidebar-brand-text mx-3"> <h1>Muk</h1> </div>
+>>>>>>> 95905db0de8ddc3711f4ade3aa3f7c16f76c64bf
       </a>
 
       <!-- Divider -->

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\Request;
+
 use App\Student;
 use App\Placement;
 use DB;
@@ -60,8 +61,5 @@ class StudentController extends Controller
             }
             
         }
-
-        $request->session()->flash('Success', 'Details have been saved!');
-        return redirect()->back();
     }
 }
