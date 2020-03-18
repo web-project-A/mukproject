@@ -33,7 +33,7 @@
 <body >
 
 	<div class="limiter">
-		<div class="container-login100" style="background-color:#5cb85c;">
+		<div class="container-login100" style="background-color:#008000;">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 
                     <div id="app">
@@ -73,7 +73,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->fname }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -124,4 +124,5 @@
 	<script src="js/main.js"></script>
 
 </body>
+@yield('scripts')
 </html>

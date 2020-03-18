@@ -16,20 +16,20 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-//Route::get('stud', function () {
+//Route::post('/register', function () {
 //    return view('layouts.stud');
 //});
 
-Route::get('/Student/placementDetails', function () {
-    return view('Student.placementDetails');
-});
+Route::get('/Student/placementDetails', 'StudentController@show');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/users', 'UserController@edit');
+Route::get('/studUsers', 'UserController@editStud');
 Route::post('/users/update', 'UserController@update');
+Route::post('/users/updateStud/{std_number}', 'UserController@updateStud');
 
 Route::get('/Overall', 'OverallController@index');
 Route::get('/Regional', 'RegionalController@index');
@@ -38,9 +38,9 @@ Route::get('/Academic', 'AcademicController@index');
 Route::get('/Field', 'FieldController@index');
 Route::get('/Student', 'StudentController@index');
 
-Route::post('/Studentplacement', 'StudentController@placement');
+Route::post('/Studentplacement/{std_number}', 'StudentController@placement');
 Route::post('/Studentorg', 'StudentController@org');
 
-
+Route::post('/registration', 'Registration@register');
 
 

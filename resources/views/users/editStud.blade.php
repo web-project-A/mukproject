@@ -1,29 +1,38 @@
 @extends('layouts.template')
 
-@section('title', 'Register')
+@section('title', 'Update Profile')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="row-md-8">
             <div class="">
             <span class="login100-form-title p-b-32">
-
-                <div class="card-header">{{ __('Register') }} </div>
-                <style>
-                .card-header{
-                    color: maroon;
-                }
-                </style>
+                <div class="card-header">{{ __('Update Profile') }}</div>
             </span>
+                <style>
+                    .card-header{
+                        color: maroon;
+                    }
+                </style>
                 <div class="card-body">
-                    <form method="POST" action="/registration">
+                    <form method="POST" action="/users/updateStud/{{$student->std_number}}">
                         @csrf
+                        
+                        @if(session()->has('Success'))
+                            <div class="alert alert-success alert-block" role="">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                <div class="card-body">
+                                    {{session()->get('Success')}}
+                                </div>
+                            </div>
+                        @endif
 
+                        
                         <div class="form-group row">
                             <label for="fname" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="fname" type="text" class="form-control @error('fname') is-invalid @enderror" name="fname" value="{{ old('fname') }}" required autocomplete="fname" autofocus>
+                                <input id="fname" type="text" class="form-control @error('fname') is-invalid @enderror" name="fname" value="{{ $student->fname}}" required autocomplete="fname" autofocus>
 
                                 @error('fname')
                                     <span class="invalid-feedback" role="alert">
@@ -36,7 +45,7 @@
                             <label for="other" class="col-md-4 col-form-label text-md-right">{{ __('Other Names') }}</label>
 
                             <div class="col-md-6">
-                                <input id="other" type="text" class="form-control @error('other') is-invalid @enderror" name="other" value="{{ old('other') }}" required autocomplete="name" autofocus>
+                                <input id="other" type="text" class="form-control @error('other') is-invalid @enderror" name="other" value="{{ $student->other }}" required autocomplete="name" autofocus>
 
                                 @error('other')
                                     <span class="invalid-feedback" role="alert">
@@ -46,33 +55,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="user_type" class="col-md-4 col-form-label text-md-right">{{ __('Type of User') }}</label>
-
-                            <div class="col-md-6">
-                                <select onchange="checkIfStudent()" id="user_type" type="text" class="form-control @error('user_type') is-invalid @enderror" name="user_type" value="{{ old('user_type') }}" required autocomplete="user_type" autofocus>
-                                    <option id="" value="">Choose User Type</option>
-                                    <option id="Student" value="Student">Student</option>
-                                    <option id="Field Supervisor" value="Field Supervisor">Field Supervisor</option>
-                                    <option id="Academic Supervisor" value="Academic Supervisor">Academic Supervisor</option>
-                                    <option id="Departmental Supervisor" value="Departmental Supervisor">Departmental Supervisor</option>
-                                    <option id="Regional Supervisor" value="Regional Supervisor">Regional Supervisor</option>
-                                    <option id="Overall Internship Coordinator" value="Overall Internship Coordinator">Overall Internship Coordinator</option>
-                                </select>
-                                @error('user_type')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div id="extra" name="extra" style="display: none">
+                        <div id="extra" name="extra">
                             <div class="form-group row" id="">
                                 <label for="std_number" class="col-md-4 col-form-label text-md-right">{{ __('Student Number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="std_number" type="text" class="form-control @error('std_number') is-invalid @enderror" name="std_number" value="{{ old('std_number') }}" required autocomplete="std_number" autofocus>
+                                    <input id="std_number" type="text" class="form-control @error('std_number') is-invalid @enderror" name="std_number" value="{{ $student->std_number }}" required autocomplete="std_number" autofocus>
 
                                     @error('std_number')
                                         <span class="invalid-feedback" role="alert">
@@ -86,7 +74,7 @@
                                 <label for="reg_number" class="col-md-4 col-form-label text-md-right">{{ __('Registration Number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="reg_number" type="text" class="form-control @error('reg_number') is-invalid @enderror" name="reg_number" value="{{ old('reg_number') }}" required autocomplete="reg_number" autofocus>
+                                    <input id="reg_number" type="text" class="form-control @error('reg_number') is-invalid @enderror" name="reg_number" value="{{ $student->reg_number }}" required autocomplete="reg_number" autofocus>
 
                                     @error('reg_number')
                                         <span class="invalid-feedback" role="alert">
@@ -101,7 +89,7 @@
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
                             <div class="col-md-6">
-                                <select id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
+                                <select id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ $student->gender }}" required autocomplete="gender" autofocus>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
@@ -117,7 +105,7 @@
                             <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
+                                <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ $student->number }}" required autocomplete="number" autofocus>
 
                                 @error('number')
                                     <span class="invalid-feedback" role="alert">
@@ -131,7 +119,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $student->email }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -179,19 +167,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('scripts')
-<script>
-    function checkIfStudent() {
-        if(document.getElementById('user_type').value == 'Student'){
-            document.getElementById('extra').style.display = '';
-            document.getElementById('std_number').disabled = false;
-            document.getElementById('reg_number').disabled = false;
-        }else{
-            document.getElementById('extra').style.display = 'none';
-            document.getElementById('std_number').disabled = true;
-            document.getElementById('reg_number').disabled = true;
-        }
-    }
-</script>
 @endsection
