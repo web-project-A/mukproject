@@ -19,7 +19,7 @@
                                 </div>
                             </div>
                         @endif
-<<<<<<< HEAD
+
                     <div class="form-group"><label for="field_supervisor_fname" class=" form-control-label">{{ __("Field Supervisor's First Name") }}</label><input name="field_supervisor_fname" type="text" id="field_supervisor_fname" placeholder="" required class="form-control @error('field_supervisor_fname') is-invalid @enderror"></div>
                     @error('field_supervisor_fname')
                         <span class="invalid-feedback" role="alert">
@@ -75,6 +75,7 @@
                     @enderror                    
 
                     <div class="form-group"><label for="region" class=" form-control-label">{{ __('Region') }}</label>
+
                         <select id="region" type="text" class="form-control @error('region') is-invalid @enderror" name="region" placeholder="Enter Region of Organisation" required autocomplete="region">
                             <option value="Kampala Region">Kampala Region</option>
                             <option value="Northern Region">Northern Region</option>

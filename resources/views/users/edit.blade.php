@@ -8,6 +8,11 @@
             <div class="">
             <span class="login100-form-title p-b-32">
                 <div class="card-header">{{ __('Update Profile') }}</div>
+                <style>
+                    .card-header{
+                      color: maroon;
+                    }
+                </style>
             </span>
                 <style>
                     .card-header{
@@ -17,10 +22,12 @@
                 <div class="card-body">
                     <form method="POST" action="/users/update">
                         @csrf
+
                         
                         @if(session()->has('Success'))
                             <div class="alert alert-success alert-block" role="">
                             <button type="button" class="close" data-dismiss="alert">×</button>
+
                                 <div class="card-body">
                                     {{session()->get('Success')}}
                                 </div>

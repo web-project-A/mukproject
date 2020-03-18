@@ -7,14 +7,11 @@
         <div class="crow-md-8">
             <div class="">
             <span class="login100-form-title p-b-32">
-
-                
                 <style>
                     .card-header{
                         color:maroon;
                         text-align: center;
                     }
-                  
                 </style>
                 <div class="card-header">{{ __(' MAKERERE UNIVERSITY INTERNSHIP SYSTEM') }}</div>
             </span>

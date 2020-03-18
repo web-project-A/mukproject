@@ -30,15 +30,22 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Student">
-<<<<<<< HEAD
-        <div class="sidebar-brand-text mx-3"> <h1>MUK</h1> </div>
-=======
-        <div class="sidebar-brand-text mx-3"> <h1>Muk</h1> </div>
->>>>>>> 95905db0de8ddc3711f4ade3aa3f7c16f76c64bf
+
+        <div class="sidebar-brand-text mx-3">
+           <!-- <style>
+                 <img class="image" src="/images/index.jpeg" >
+                .image{
+                   width: 20%;
+                   margin-top: 20px;
+                   background-color: green;
+                }
+            </style> --><h1>MUK</h1> </div>
+
       </a>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
+
 
 
 
@@ -54,6 +61,7 @@
           <div class="bg-dark py-8 collapse-inner rounded">
             <a class="collapse-item" href="#">Placement Letter</a>
           <a class="collapse-item" href="/Student/placementDetails">Placement Details</a>
+
           </div>
         </div>
       </li>
