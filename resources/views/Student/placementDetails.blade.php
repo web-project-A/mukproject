@@ -28,6 +28,7 @@
                         @enderror
                     </div>
 
+
                     <div class="form-group"><label for="field_supervisor_other" class=" form-control-label">{{ __("Field Supervisor's Other Names") }}</label><input name="field_supervisor_other" type="text" id="field_supervisor_lname" placeholder="" required class="form-control @error('field_supervisor_other') is-invalid @enderror">
                         @error('field_supervisor_other')
                             <span class="invalid-feedback" role="alert">
@@ -43,6 +44,7 @@
                             </span>
                         @enderror
                     </div>
+
 
                     <div class="form-group"><label for="end_date" class=" form-control-label">{{ __('End Date') }}</label><input name="end_date" type="date" id="end_date" placeholder="yyyy/MM/dd" required class="form-control @error('end_date') is-invalid @enderror">
                         @error('end_date')
@@ -74,6 +76,7 @@
                     </div>
 
                     <!--end of google map feature-->
+<<<<<<< HEAD
                     <div class="form-group"><label for="additional_information" class=" form-control-label">{{ __('Additional Address Information') }}</label><input name="additional_information" type="text" id="additional_information" placeholder="" required class="form-control @error('additional_information') is-invalid @enderror">
                         @error('additional_information')
                             <span class="invalid-feedback" role="alert">
@@ -81,6 +84,14 @@
                             </span>
                         @enderror                    
                     </div>
+=======
+                    <div class="form-group"><label for="additional_information" class=" form-control-label">{{ __('Additional Address Information') }}</label><input name="additional_information" type="text" id="additional_information" placeholder="" required class="form-control @error('additional_information') is-invalid @enderror"></div>
+                    @error('additional_information')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+>>>>>>> e34668da009f05047f1cd03ff81dec067dea99b3
 
                     <div class="form-group"><label for="region" class=" form-control-label">{{ __('Region') }}</label>
 
@@ -97,6 +108,7 @@
                          @enderror
                     </div>
 
+<<<<<<< HEAD
                     <div class="form-group"><label for="city" class=" form-control-label">{{ __('City') }}</label>
                         <select name="city" type="text" id="city" required class="form-control @error('city') is-invalid @enderror">
                             <option value="">Select City</option>
@@ -107,6 +119,21 @@
                             </span>
                         @enderror                    
                     </div>
+=======
+                    <div class="form-group"><label for="city" class=" form-control-label">{{ __('City') }}</label><input name="city" type="text" id="city" placeholder="" required class="form-control @error('city') is-invalid @enderror"></div>
+                    @error('city')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                    <div class="form-group"><label for="contact" class=" form-control-label">{{ __('Phone Number') }}</label><input name="contact" type="text" id="contact" placeholder="" required class="form-control @error('contact') is-invalid @enderror"></div>
+                    @error('contact')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+>>>>>>> e34668da009f05047f1cd03ff81dec067dea99b3
 
                     <div class="form-group"><label for="contact" class=" form-control-label">{{ __('Phone Number') }}</label><input name="contact" type="text" id="contact" placeholder="" required class="form-control @error('contact') is-invalid @enderror">
                         @error('contact')
@@ -125,7 +152,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary" >Submit</button>
-                    <button type="reset" class="btn btn-primary">Refresh</button>                         
+                    <button type="reset" class="btn btn-primary">Refresh</button>
                 </form>
 
                 </div>
@@ -133,6 +160,7 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 @endsection
 @section('scripts')
 <script>
@@ -158,3 +186,8 @@ $(document).ready(function(){
 });
 </script>
 @endsection
+=======
+
+
+@endsection
+>>>>>>> e34668da009f05047f1cd03ff81dec067dea99b3

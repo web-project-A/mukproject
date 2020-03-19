@@ -20,7 +20,19 @@ Route::get('/', function () {
 //    return view('layouts.stud');
 //});
 
+
+Route::get('/Student/placementDetails', function () {
+    return view('Student.placementDetails');
+});
+Route::get('/Student/InternshipDetails', function () {
+    return view('Student.internshipDetails');
+});
+Route::get('/Student/placementletter', function () {
+    return view('Student.placementletter');
+});
+
 Route::get('/Student/placementDetails', 'StudentController@show');
+
 
 
 Auth::routes();
@@ -42,6 +54,8 @@ Route::get('/Student', 'StudentController@index');
 Route::post('/Studentplacement/{std_number}', 'StudentController@placement');
 
 Route::post('/Studentorg', 'StudentController@org');
+Route::post('/Studentinternshipdetails', 'StudentController@internship');
+Route::post('/placementletter', 'StudentController@upload');
 
 Route::post('/registration', 'Registration@register');
 

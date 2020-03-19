@@ -20,13 +20,14 @@ class CreateStudentsTable extends Migration
             $table->string('fname');
             $table->string('other_name');
             $table->string('gender');
+            $table->string('phoneCode');
             $table->string('number');
             $table->string('email');
             $table->string('organisation')->nullable();
             $table->string('field_supervisor_fname')->nullable();
             $table->string('field_supervisor_other')->nullable();
 
- 
+
             $table->timestamps();
         });
     }

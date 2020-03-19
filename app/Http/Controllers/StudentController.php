@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Student;
 use App\Placement;
 use App\Region;
+
+use App\InternshipDetail;
+use App\Upload;
+
 use DB;
+
 
 class StudentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('Student.home');
@@ -43,7 +52,7 @@ class StudentController extends Controller
             'field_supervisor_fname' => 'required|string|max:255',
             'field_supervisor_other' => 'required|string|max:255',
             'organisation' => 'required|string|max:255',
-            'contact' => 'required|min:10|max:10',
+            'contact' => 'required|min:9|max:14',
             'email' => 'required|email|string|max:255'
         ]);
 
@@ -51,7 +60,7 @@ class StudentController extends Controller
         $fname = $request->input('field_supervisor_fname');
         $other = $request->input('field_supervisor_other');
         $org = $request->input('organisation');
-        $field_others = DB::select("select field_supervisor_other from placements where field_supervisor_fname='$fname' and organisation='$org'"); 
+        $field_others = DB::select("select field_supervisor_other from placements where field_supervisor_fname='$fname' and organisation='$org'");
         foreach($field_others as $field_other)
         {
             //dd($field_other->field_supervisor_other);
@@ -59,7 +68,7 @@ class StudentController extends Controller
                 DB::update("update students set organisation=?, field_supervisor_fname=?, field_supervisor_other=? where std_number=?", [$org, $fname, $other, $std_number]);
             }else {
                 DB::update("update students set organisation=?, field_supervisor_fname=?, field_supervisor_other=? where std_number=?", [$org, $fname, $other, $std_number]);
-    
+
                 $placement = new Placement();
                 $placement->field_supervisor_fname = request('field_supervisor_fname');
                 $placement->field_supervisor_other = request('field_supervisor_other');
@@ -74,7 +83,41 @@ class StudentController extends Controller
                 $placement->email = request('email');
                 $placement->save();
             }
-            
+
         }
     }
+    public function internship()
+    {
+        $internship = new InternshipDetail();
+        $internship->field_supervisor_fname = request('field_supervisor_fname');
+        $internship ->field_supervisor_lname = request('field_supervisor_lname');
+        $internship->organisation = request('organisation');
+        $internship->save();
+        return redirect('/Student/InternshipDetails')->with('Success', 'Details have been saved!');
+    }
+
+    public function upload(request $request){
+        $request->validate([
+            'file' => 'required|file|max:3072',  // code to validate size of the file..
+        ]);
+
+         if($request->hasFile('file')){
+
+            $filename = $request->file->getClientOriginalName();
+            $filesize = $request->file->getClientSize();
+            $request->file->storeAs('public/upload', $filename);
+
+
+             $file = new Upload();
+            $file->name = $filename;
+            $file->size = $filesize;
+            $file->save();
+
+            return redirect('/Student/placementletter')->with('Success', 'File Has been Uploaded');
+
+         }
+         return $request->all();
+    }
+
+
 }

@@ -59,7 +59,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-dark py-8 collapse-inner rounded">
-            <a class="collapse-item" href="#">Placement Letter</a>
+            <a class="collapse-item" href="/Student/placementletter">Placement Letter</a>
           <a class="collapse-item" href="/Student/placementDetails">Placement Details</a>
 
           </div>
@@ -75,7 +75,7 @@
           <div class="bg-dark py-2 collapse-inner rounded">
             <a class="collapse-item" href="#">Daily Journal</a>
             <a class="collapse-item" href="#">Challenges</a>
-            <a class="collapse-item" href="#">Internship Details</a>
+            <a class="collapse-item" href="/Student/InternshipDetails">Internship Details</a>
           </div>
         </div>
       </li>

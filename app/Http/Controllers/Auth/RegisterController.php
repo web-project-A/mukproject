@@ -66,9 +66,9 @@ class RegisterController extends Controller
                 $this->redirectTo = '/login';
                 return $this->redirectTo;
         }
-         
+
         // return $next($request);
-    } 
+    }
 
     /**
      * Create a new controller instance.
@@ -89,6 +89,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+
+            'name' => ['required', 'string', 'max:255'],
+            'phoneCode' => ['required', 'string'],
             'fname' => ['required', 'string', 'max:255'],
             'other' => ['required', 'string', 'max:255'],
             'user_type' => ['required', 'string', 'max:255'],
@@ -96,7 +99,7 @@ class RegisterController extends Controller
             'std_number' => ['required', 'string', 'max:255'],
             'reg_number' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
-            'number' => ['required', 'string', 'max:10', 'min:10'],
+            'number' => ['required', 'string', 'max:14', 'min:9'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -116,6 +119,7 @@ class RegisterController extends Controller
             'std_number' => $data['std_number'],
             'reg_number' => $data['reg_number'],
             'gender' => $data['gender'],
+            'phoneCode' => $data['phoneCode'],
             'number' => $data['number'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

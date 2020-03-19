@@ -8,14 +8,14 @@ use App\Student;
 
 class Registration extends Controller
 {
-    public function register(Request $request) 
+    public function register(Request $request)
     {
         $validate = $request->validate([
             'fname' => 'required|string|max:255',
             'other' => 'required|string|max:255',
             'user_type' => 'required|string|max:255',
             'gender' => 'required',
-            'number' => 'required|min:10|max:10',
+            'number' => 'required|min:9|max:14',
             'password' => 'required|string|min:8|confirmed',
             'email' => 'required|email|string|max:255|unique:users'
         ]);
@@ -33,6 +33,7 @@ class Registration extends Controller
             $user->std_number = $request['std_number'];
             $user->reg_number = $request['reg_number'];
             $user->gender = $request['gender'];
+            $user->phoneCode = $request['phoneCode'];
             $user->number = $request['number'];
             $user->email = $request['email'];
             $user->password = bcrypt($request['password']);
@@ -44,6 +45,7 @@ class Registration extends Controller
             $stud->fname = $request['fname'];
             $stud->other_name = $request['other'];
             $stud->gender = $request['gender'];
+            $stud->phoneCode = $request['phoneCode'];
             $stud->number = $request['number'];
             $stud->email = $request['email'];
             $stud->save();
@@ -56,6 +58,7 @@ class Registration extends Controller
             $user->std_number = $request['std_number'];
             $user->reg_number = $request['reg_number'];
             $user->gender = $request['gender'];
+            $user->phoneCode = $request['phoneCode'];
             $user->number = $request['number'];
             $user->email = $request['email'];
             $user->password = bcrypt($request['password']);
