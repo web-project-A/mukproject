@@ -30,6 +30,7 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Student">
+
         <div class="sidebar-brand-text mx-3">
            <!-- <style>
                  <img class="image" src="/images/index.jpeg" >
@@ -39,6 +40,7 @@
                    background-color: green;
                 }
             </style> --><h1>MUK</h1> </div>
+
       </a>
 
       <!-- Divider -->
@@ -196,11 +198,11 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->fname }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/users">
+                                <a class="dropdown-item" href="/studUsers">
                                         {{ __('Update Profile') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

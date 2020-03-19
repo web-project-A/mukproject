@@ -14,31 +14,53 @@
                     }
                 </style>
             </span>
+                <style>
+                    .card-header{
+                        color: maroon;
+                    }
+                </style>
                 <div class="card-body">
                     <form method="POST" action="/users/update">
                         @csrf
 
-                        @if(session('Success'))
-                            <div class="card bg-success text-white shadow" role="">
+
+                        @if(session()->has('Success'))
+                            <div class="alert alert-success alert-block" role="">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+
                                 <div class="card-body">
-                                    {{session('Success')}}
+                                    {{session()->get('Success')}}
                                 </div>
                             </div>
                         @endif
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="fname" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
+                                <input id="fname" type="text" class="form-control @error('fname') is-invalid @enderror" name="fname" value="{{ $user->fname}}" required autocomplete="fname" autofocus>
 
-                                @error('name')
+                                @error('fname')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="other" class="col-md-4 col-form-label text-md-right">{{ __('Other Names') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="other" type="text" class="form-control @error('other') is-invalid @enderror" name="other" value="{{ $user->other }}" required autocomplete="name" autofocus>
+
+                                @error('other')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
@@ -56,7 +78,7 @@
                         </div>
                         <div class="form-group row">
 
-                            <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+                            <label for="phoneCode" class="col-md-4 col-form-label text-md-right">{{ __('Phone Code') }}</label>
                             <div class="col-md-6">
 
                                 <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode" autofocus>
@@ -80,6 +102,21 @@
                                       <option value="+253">+86</option>
                                       <option value="+253">+91</option>
                                     </select>
+
+
+                                @error('number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                          <div class="form-group row">
+
+                            <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+                            <div class="col-md-6">
+
+
                                 <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
 
                                 @error('number')
@@ -110,7 +147,7 @@
                             <div class="col-md-6">
                             <span class="btn-show-pass">
 							<i class="fa fa-eye"></i>
-					     	</span>
+						    </span>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
@@ -132,7 +169,7 @@
                         <div class="form-group row mb-0">
                             <div class="container-login100-form-btn">
                                 <button type="submit" class="login100-form-btn">
-                                    {{ __('Update Details') }}
+                                    {{ __('Register') }}
                                 </button>
                             </div>
                         </div>
