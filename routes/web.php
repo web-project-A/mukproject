@@ -45,6 +45,5 @@ Route::post('/Studentorg', 'StudentController@org');
 
 Route::post('/registration', 'Registration@register');
 
-
-
+Route::post('StudentController/fetch', 'StudentController@fetch')->name('StudentController.fetch');
 

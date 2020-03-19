@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Student;
 use App\Placement;
+use App\Region;
 use DB;
 
 class StudentController extends Controller
@@ -19,7 +20,21 @@ class StudentController extends Controller
     public function show()
     {
         $student = Auth::user();
-        return view('Student.placementDetails', compact('student'));
+        $regions = DB::table('regions')->groupBy('region')->get();
+        return view('Student.placementDetails', compact('student', 'regions'));
+    }
+
+    function fetch(Request $request)
+    {
+        $select = $request->get('select');
+        $value = $request->get('value');
+        $dependent = $request->get('dependent');
+        $data = DB::table('regions')->where($select, $value)->groupBy($dependent)->get();
+        $output = '<option value="">Select'.ucfirst($dependent).'</option>';
+        foreach($data as $row){
+            $output.='<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
+        }
+        echo $output;
     }
 
     public function placement(Request $request, $std_number)

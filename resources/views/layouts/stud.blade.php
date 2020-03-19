@@ -279,5 +279,6 @@
   <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
 </body>
+@yield('scripts')
 
 </html>
