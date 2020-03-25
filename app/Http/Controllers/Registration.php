@@ -32,6 +32,7 @@ class Registration extends Controller
             $user->user_type = $request['user_type'];
             $user->std_number = $request['std_number'];
             $user->reg_number = $request['reg_number'];
+            $user->course = $request['course'];
             $user->gender = $request['gender'];
             $user->phoneCode = $request['phoneCode'];
             $user->number = $request['number'];
@@ -42,6 +43,7 @@ class Registration extends Controller
             $stud = new Student();
             $stud->std_number = $request['std_number'];
             $stud->reg_number = $request['reg_number'];
+            $stud->course = $request['course'];
             $stud->fname = $request['fname'];
             $stud->other_name = $request['other'];
             $stud->gender = $request['gender'];
@@ -57,6 +59,7 @@ class Registration extends Controller
             $user->user_type = $request['user_type'];
             $user->std_number = $request['std_number'];
             $user->reg_number = $request['reg_number'];
+            $user->course = $request['course'];
             $user->gender = $request['gender'];
             $user->phoneCode = $request['phoneCode'];
             $user->number = $request['number'];

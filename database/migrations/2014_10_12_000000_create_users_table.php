@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('std_number')->nullable();
             $table->string('reg_number')->nullable();
+            $table->string('course')->nullable();
             $table->string('fname');
             $table->string('other');
             $table->string('user_type');

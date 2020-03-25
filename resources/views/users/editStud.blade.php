@@ -83,6 +83,20 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="form-group row" id="">
+                                <label for="course" class="col-md-4 col-form-label text-md-right">{{ __('Course') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="course" type="text" class="form-control @error('course') is-invalid @enderror" name="course" value="{{ $student->course }}" required autocomplete="course" autofocus>
+
+                                    @error('course')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -105,7 +119,7 @@
                             <label for="phoneCode" class="col-md-4 col-form-label text-md-right">{{ __('Phone Code') }}</label>
                             <div class="col-md-6">
 
-                                <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode" autofocus>
+                                <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ $student->phoneCode}}" required autocomplete="phoneCode" autofocus>
                                       <option value="+256">+256</option>
                                       <option value="+254">+254</option>
                                       <option value="+257">+255</option>
@@ -141,7 +155,7 @@
                             <div class="col-md-6">
 
 
-                                <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
+                                <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ $student->number }}" required autocomplete="number" autofocus>
 
                                 @error('number')
                                     <span class="invalid-feedback" role="alert">

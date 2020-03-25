@@ -73,7 +73,7 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-dark py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">Daily Journal</a>
+            <a class="collapse-item" href="/Student/dailyJournal">Daily Journal</a>
             <a class="collapse-item" href="#">Challenges</a>
             <a class="collapse-item" href="/Student/InternshipDetails">Internship Details</a>
           </div>
@@ -104,7 +104,7 @@
       <hr class="sidebar-divider">
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#" >
+          <a class="nav-link collapsed" href="/Student/report" >
             <span>Report Writing Progress</span>
           </a>
         </li>

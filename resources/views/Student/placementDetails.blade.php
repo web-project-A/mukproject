@@ -3,6 +3,7 @@
 @section('title', 'Placement Details')
 
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <div class="container">
 
     <div class="card">
@@ -76,7 +77,6 @@
                     </div>
 
                     <!--end of google map feature-->
-<<<<<<< HEAD
                     <div class="form-group"><label for="additional_information" class=" form-control-label">{{ __('Additional Address Information') }}</label><input name="additional_information" type="text" id="additional_information" placeholder="" required class="form-control @error('additional_information') is-invalid @enderror">
                         @error('additional_information')
                             <span class="invalid-feedback" role="alert">
@@ -84,14 +84,7 @@
                             </span>
                         @enderror                    
                     </div>
-=======
-                    <div class="form-group"><label for="additional_information" class=" form-control-label">{{ __('Additional Address Information') }}</label><input name="additional_information" type="text" id="additional_information" placeholder="" required class="form-control @error('additional_information') is-invalid @enderror"></div>
-                    @error('additional_information')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
->>>>>>> e34668da009f05047f1cd03ff81dec067dea99b3
+
 
                     <div class="form-group"><label for="region" class=" form-control-label">{{ __('Region') }}</label>
 
@@ -108,7 +101,6 @@
                          @enderror
                     </div>
 
-<<<<<<< HEAD
                     <div class="form-group"><label for="city" class=" form-control-label">{{ __('City') }}</label>
                         <select name="city" type="text" id="city" required class="form-control @error('city') is-invalid @enderror">
                             <option value="">Select City</option>
@@ -119,21 +111,7 @@
                             </span>
                         @enderror                    
                     </div>
-=======
-                    <div class="form-group"><label for="city" class=" form-control-label">{{ __('City') }}</label><input name="city" type="text" id="city" placeholder="" required class="form-control @error('city') is-invalid @enderror"></div>
-                    @error('city')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
 
-                    <div class="form-group"><label for="contact" class=" form-control-label">{{ __('Phone Number') }}</label><input name="contact" type="text" id="contact" placeholder="" required class="form-control @error('contact') is-invalid @enderror"></div>
-                    @error('contact')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
->>>>>>> e34668da009f05047f1cd03ff81dec067dea99b3
 
                     <div class="form-group"><label for="contact" class=" form-control-label">{{ __('Phone Number') }}</label><input name="contact" type="text" id="contact" placeholder="" required class="form-control @error('contact') is-invalid @enderror">
                         @error('contact')
@@ -160,13 +138,12 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-@endsection
+@endsection 
 @section('scripts')
 <script>
 $(document).ready(function(){
-    $('.dynamic').change(functio(){
-        if($(this).value() != '')
+    $('.dynamic').change(function(){
+        if($(this).val() != '')
         {
             var select = $(this).attr("id");
             var value = $(this).val();
@@ -186,8 +163,4 @@ $(document).ready(function(){
 });
 </script>
 @endsection
-=======
 
-
-@endsection
->>>>>>> e34668da009f05047f1cd03ff81dec067dea99b3

@@ -77,16 +77,18 @@ class UserController extends Controller
             $stud_other_name = $request->input('other');
             $stud_std_number = $request->input('std_number');
             $stud_reg_number = $request->input('reg_number');
+            $stud_course = $request->input('course');
             $stud_gender = $request->input('gender');
             $stud_number = $request->input('number');
             $stud_email = $request->input('email');
 
-            DB::update("update students set fname=?, other_name=?, reg_number=?, gender=?, number=?, email=? where std_number=?", [$stud_fname, $stud_other_name, $stud_reg_number, $stud_gender, $stud_number, $stud_email, $std_number]);
+            DB::update("update students set fname=?, other_name=?, reg_number=?, course=?, gender=?, number=?, email=? where std_number=?", [$stud_fname, $stud_other_name, $stud_reg_number, $stud_course, $stud_gender, $stud_number, $stud_email, $std_number]);
 
             $user->fname = $request['fname'];
             $user->other = $request['other'];
             $user->std_number = $request['std_number'];
             $user->reg_number = $request['reg_number'];
+            $user->course = $request['course'];
             $user->gender = $request['gender'];
             $user->number = $request['number'];
             $user->email = $request['email'];
