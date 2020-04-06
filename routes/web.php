@@ -16,24 +16,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-//Route::post('/register', function () {
-//    return view('layouts.stud');
-//});
+Route::get('/placementDetailsEdit', 'StudentController@show');
 
+Route::get('/dailyJournalEdit', 'StudentController@logbook');
 
-Route::get('/Student/placementDetails', function () {
-    return view('Student.placementDetails');
-});
-Route::get('/Student/InternshipDetails', function () {
-    return view('Student.internshipDetails');
-});
-Route::get('/Student/placementletter', function () {
-    return view('Student.placementletter');
-});
+Route::get('/Student/placementletter', 'StudentController@placementLetter');
 
 Route::get('/Student/placementDetails', 'StudentController@show');
-
-
 
 Auth::routes();
 
@@ -41,8 +30,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/users', 'UserController@edit');
 Route::get('/studUsers', 'UserController@editStud');
-Route::post('/users/update', 'UserController@update');
-Route::post('/users/updateStud/{std_number}', 'UserController@updateStud');
+Route::post('/users/update/{id}', 'UserController@update');
+Route::post('/users/updateStud/{id}', 'UserController@updateStud');
 
 Route::get('/Overall', 'OverallController@index');
 Route::get('/Regional', 'RegionalController@index'); 
@@ -52,14 +41,16 @@ Route::get('/Field', 'FieldController@index');
 Route::get('/Student', 'StudentController@index');
 Route::get('/Student/dailyJournal', 'StudentController@logbook');
 Route::get('/Student/report', 'StudentController@report');
+Route::get('/back', 'UserController@back');
 
-Route::post('/Studentplacement/{std_number}', 'StudentController@placement');
-Route::post('/fillJournal/{std_number}', 'StudentController@fillJournal');
+Route::post('/Studentplacement/{id}', 'StudentController@placement');
+Route::post('/fillJournal/{id}', 'StudentController@fillJournal');
+Route::post('/editJournal/{id}', 'StudentController@editJournal');
 Route::post('/Studentorg', 'StudentController@org');
-Route::post('/Studentinternshipdetails', 'StudentController@internship');
-Route::post('/placementletter', 'StudentController@upload');
-Route::post('/fillReport/{std_number}', 'StudentController@fillReport');
+Route::post('/placementletter/{id}', 'StudentController@upload');
+Route::post('/fillReport/{id}', 'StudentController@fillReport');
 Route::post('/registration', 'Registration@register');
+Route::post('/Studentplacementedit/{id}', 'StudentController@placementedit');
 
 Route::post('StudentController/fetch', 'StudentController@fetch')->name('StudentController.fetch');
 

@@ -75,7 +75,6 @@
           <div class="bg-dark py-2 collapse-inner rounded">
             <a class="collapse-item" href="/Student/dailyJournal">Daily Journal</a>
             <a class="collapse-item" href="#">Challenges</a>
-            <a class="collapse-item" href="/Student/InternshipDetails">Internship Details</a>
           </div>
         </div>
       </li>

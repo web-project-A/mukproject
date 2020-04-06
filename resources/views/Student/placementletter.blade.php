@@ -9,11 +9,9 @@
     <div class="form1">
         <div class="card">
             <div class="card-header"><strong><h3>UPLOAD FILE</h3></strong></div>
-            <div>
-                <h4>Please make sure the file name is your Student Number.</h4>
-            </div>
+
                 <div class="card-body card-block">
-                    <form method="post" action="/placementletter" enctype="multipart/form-data">
+                    <form method="post" action="/placementletter/{{ $user-> id}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         @if(session()->has('Success'))
                                 <div class="alert alert-success alert-block" role="">
@@ -38,8 +36,8 @@
                             <div class="form-group">
                                   <input type="file" name="file" class="form-control">
                             </div>
-                        <button type="reset" class="btn btn-primary">Refresh</button>
                         <button type="submit" class="btn btn-primary" >Submit</button>
+                        <button type="reset" class="btn btn-primary">Refresh</button>
                     </form>
                 </div>
             </div>

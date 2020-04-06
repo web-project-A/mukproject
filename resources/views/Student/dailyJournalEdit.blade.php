@@ -10,7 +10,7 @@
         <div class="card-header"><strong><h3>DAILY JOURNAL</h3></strong></div>
             <div class="card-body card-block">
             
-                <form method="POST" action="/fillJournal/{{ $user->id }}">
+                <form method="POST" action="/editJournal/{{ $user->id }}">
 
                     {{ csrf_field() }}
                     @if(session()->has('Success'))
@@ -66,7 +66,8 @@
                     </div>
                     @endforeach
 
-                    <div class="form-group"><label for="academic_supervisor_fname" class=" form-control-label">{{ __("Academic Supervisor's First Name") }}</label><input name="academic_supervisor_fname" value="{{ old('academic_supervisor_fname') }}" type="text" id="academic_supervisor_fname" required class="form-control @error('academic_supervisor_fname') is-invalid @enderror">
+                    @foreach($logbooks as $logbook)
+                    <div class="form-group"><label for="academic_supervisor_fname" class=" form-control-label">{{ __("Academic Supervisor's First Name") }}</label><input name="academic_supervisor_fname" value="{{ $logbook->academic_supervisor_fname }}" type="text" id="academic_supervisor_fname" required class="form-control @error('academic_supervisor_fname') is-invalid @enderror">
                         @error('academic_supervisor_fname')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -74,15 +75,15 @@
                         @enderror   
                     </div>         
 
-                    <div class="form-group"><label for="academic_supervisor_other" class=" form-control-label">{{ __("Academic Supervisor's Other Names") }}</label><input name="academic_supervisor_other" value="{{ old('academic_supervisor_other') }}" type="text" id="academic_supervisor_other" required class="form-control @error('academic_supervisor_other') is-invalid @enderror">
+                    <div class="form-group"><label for="academic_supervisor_other" class=" form-control-label">{{ __("Academic Supervisor's Other Names") }}</label><input name="academic_supervisor_other" value="{{ $logbook->academic_supervisor_other }}" type="text" id="academic_supervisor_other" required class="form-control @error('academic_supervisor_other') is-invalid @enderror">
                         @error('academic_supervisor_other')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror   
                     </div>                                    
-                    
-                    <button type="submit" class="btn btn-primary" >Submit</button>
+                    @endforeach
+                    <button type="submit" class="btn btn-primary" >Edit</button>
                     <button type="reset" class="btn btn-primary">Refresh</button>
                 </form>
 

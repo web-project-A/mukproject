@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInternshipDetailsTable extends Migration
+class CreateUploadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateInternshipDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('internship_details', function (Blueprint $table) {
+        Schema::create('uploads', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('field_supervisor_fname');
-            $table->string('field_supervisor_lname');
-            $table->string('organisation');
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('name');
+            $table->string('size');
             $table->timestamps();
+
+            //foreign
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -29,6 +32,6 @@ class CreateInternshipDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('internship_details');
+        Schema::dropIfExists('uploads');
     }
 }

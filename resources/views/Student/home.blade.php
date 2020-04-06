@@ -3,28 +3,65 @@
 
 @section('title', 'Student')
 @section('content')
-<style type="text/css">
-        	.st{
-        		color: green;
-        	}
-        </style>
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h2 class="st">Student Dashboard</h2></div>
+ <!-- Page Wrapper -->
+ <div id="wrapper">
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <p>Welcome, this is the the Student Dashboard.</p>
-                     You must be privileged to be here!
-                </div>
-            </div>
-        </div>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">ITEMS</h1>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <tbody>
+            <tr>
+              <td>Placement Letter</td>
+              <td><input type="checkbox" @php echo $upload_check; @endphp value="yes" class="btn btn-success btn-circle btn-sm"></td>
+              <td>
+                <button type="" class="btn btn-primary" >Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Placement Details</td>
+              <td><input type="checkbox" @php echo $placement_check; @endphp  class="btn btn-success btn-circle btn-sm"></td>
+              <td>
+                <a href="/placementDetailsEdit">
+                    <button type="" class="btn btn-primary" >Edit</button>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>Daily Journal</td>
+              <td><input type="checkbox" @php echo $daily_check; @endphp  class="btn btn-success btn-circle btn-sm"></td>
+              <td>
+                <a href="/dailyJournalEdit">
+                    <button type="" class="btn btn-primary" >Edit</button>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>Reports</td>
+              <td>@php echo $report_number; @endphp</td>
+              <td>
+                <button type="" class="btn btn-primary" >Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+
 </div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+</div>
+<!-- End of Page Wrapper -->
+
 @endsection

@@ -238,10 +238,12 @@
             document.getElementById('extra').style.display = '';
             document.getElementById('std_number').disabled = false;
             document.getElementById('reg_number').disabled = false;
+            document.getElementById('course').disabled = false;
         }else{
             document.getElementById('extra').style.display = 'none';
             document.getElementById('std_number').disabled = true;
             document.getElementById('reg_number').disabled = true;
+            document.getElementById('course').disabled = true;
         }
     }
 </script>
