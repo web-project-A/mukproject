@@ -128,7 +128,7 @@ class StudentController extends Controller
             foreach($orgs as $org){
                 $org_id = $org->id;
             }
-            $fields = DB::select("select * from field_supervisors where fname='$fname', other='$other' and org_id=$org_id");
+            $fields = DB::select("select * from field_supervisors where fname='$fname' and org_id=$org_id");
             if(!empty($fields))
             {
                 foreach($fields as $field){
@@ -149,7 +149,7 @@ class StudentController extends Controller
                 $field_supervisor->org_id = $org_id;
                 $field_supervisor->save();
 
-                $fieldsups = DB::select("select * from field_supervisors where fname='$fname', other='$other' and org_id=$org_id");
+                $fieldsups = DB::select("select * from field_supervisors where fname='$fname' and org_id=$org_id");
                 foreach($fieldsups as $fieldsup){
                     $fieldsup_id = $fieldsup->id;
                 }
