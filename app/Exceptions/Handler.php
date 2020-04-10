@@ -29,20 +29,12 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-<<<<<<< HEAD
      * @param  \Throwable  $exception
-=======
-     * @param  \Exception  $exception
->>>>>>> 0e6ada1e235096d70fe45ced47fd915a4367c8a0
      * @return void
      *
      * @throws \Exception
      */
-<<<<<<< HEAD
     public function report(Throwable $exception)
-=======
-    public function report(Exception $exception)
->>>>>>> 0e6ada1e235096d70fe45ced47fd915a4367c8a0
     {
         parent::report($exception);
     }
