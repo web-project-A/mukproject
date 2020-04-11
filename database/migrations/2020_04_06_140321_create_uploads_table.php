@@ -18,6 +18,8 @@ class CreateUploadsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('name');
             $table->string('size');
+            $table->string('User_Ip');
+            $table->string('Device_Browser_Detail');
             $table->timestamps();
 
             //foreign

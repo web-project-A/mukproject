@@ -77,7 +77,8 @@ class LoginController extends Controller
     {
         $user->update([
             'last_login_at' => Carbon::now()->toDateTimeString(),
-            'last_login_ip' => $request->getClientIp()
+            'last_login_ip' => $request->getClientIp(),
+            'Device_Browser_Detail' => $request->server('HTTP_USER_AGENT')
         ]);
     }
 

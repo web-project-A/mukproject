@@ -1,17 +1,14 @@
 @extends('layouts.stud')
 
-@section('title', 'Placement Letter')
-
+@section('title', 'RE-UPLOAD')
 @section('content')
 <div class="container">
-
-
-    <div class="form1">
+    <div class="form">
         <div class="card">
-            <div class="card-header"><strong><h3>UPLOAD FILE</h3></strong></div>
-
+            <div class="card-header"><strong><h3>RE-UPLOAD FILE</h3></strong></div>
+          
                 <div class="card-body card-block">
-                    <form method="post" action="/placementletter/{{ $user-> id}}" enctype="multipart/form-data">
+                    <form method="post" action="/reupload" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         @if(session()->has('Success'))
                                 <div class="alert alert-success alert-block" role="">
@@ -32,12 +29,12 @@
                         </div>
                          @endif
 
-
                             <div class="form-group">
-                                  <input type="file" name="file" class="form">
+                                  <input type="file" name="file" class="card">
                             </div>
+                       
                         <button type="submit" class="btn btn-primary" >Submit</button>
-                        <button type="reset" class="btn btn-primary">Refresh</button>
+                       
                     </form>
                 </div>
             </div>

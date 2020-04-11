@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/Student/reupload', function () {
+    return view('Student.reupload');
+});
+Route::get('/Student/viewdocuments', 'StudentController@viewplacement');
 
 Route::get('/email', function () {
     Mail::to('email@email.com')->send(new Registration());
@@ -28,10 +32,13 @@ Route::get('/registerfieldsupervisor', function () {
 
 Route::get('/placementDetailsEdit', 'StudentController@show');
 
+Route::post('/reupload/{id}', 'StudentController@upload');
+Route::post('/delete/{name}', 'StudentController@delete');
+Route::get('Student/view/{id}', 'StudentController@view');
+
+Route::get('/placementDetailsEdit', 'StudentController@show');
 Route::get('/dailyJournalEdit', 'StudentController@logbook');
-
 Route::get('/Student/placementletter', 'StudentController@placementLetter');
-
 Route::get('/Student/placementDetails', 'StudentController@show');
 
 Auth::routes();

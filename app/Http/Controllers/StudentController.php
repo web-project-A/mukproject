@@ -26,18 +26,9 @@ class StudentController extends Controller
     }
     public function index()
     {
+
         $user = Auth::user();
         $user_id = $user->id;
-
-        $uploads = DB::select("select * from uploads where user_id=$user_id");
-        if(!empty($uploads))
-        {
-            $upload_check = 'checked';
-        }else{
-            $upload_check = '';
-        }
-        //dd($upload_check);
-
         $placementDetails = DB::select("select * from students where user_id=$user_id");
         foreach($placementDetails as $placementDetail){
             $start_date = $placementDetail->start_date;
@@ -62,8 +53,21 @@ class StudentController extends Controller
         {
             $report_number = $report->number;
         }
+        $user = Auth::user();
+        $file = DB::table('uploads')->get();
+        $upload = DB::table('uploads')->get();
+        $display = DB::table('uploads')->get();
 
-        return view('Student.home', compact('upload_check', 'user', 'placement_check', 'daily_check', 'report_number'));
+        return view('Student.home', compact('upload_check', 'user', 'placement_check', 'daily_check', 'report_number','file','upload','display'));
+    }
+    
+    public function viewplacement()
+    {
+        $user = Auth::user();
+        $file = DB::table('uploads')->get();
+        $upload = DB::table('uploads')->get();
+        $display = DB::table('uploads')->get();
+        return view('Student.viewplacement', compact('user', 'file', 'upload', 'display'));
     }
 
     public function show()
@@ -89,7 +93,7 @@ class StudentController extends Controller
                 $field_supervisor_id = $stud->field_supervisor_id;
             }
             $fields = DB::select("select * from field_supervisors where id=$field_supervisor_id");
-            $orgs = DB:: select("select * from organisations where id=$org_id");
+            $orgs = DB::select("select * from organisations where id=$org_id");
             return view('Student.placementDetailsEdit', compact('student', 'studs', 'fields', 'orgs'));
         }
     }
@@ -420,6 +424,9 @@ class StudentController extends Controller
             $field_supervisor_id = $field->id;
         }
 
+        $Device_Browser_detail = $request->server('HTTP_USER_AGENT');
+        $User_IP = $request->getClientIp(); 
+
         $fill = new Daily_journal();
         $fill->user_id = $user_id;
         $fill->std_number = $std_number;
@@ -427,6 +434,8 @@ class StudentController extends Controller
         $fill->field_supervisor_id = $field_supervisor_id;
         $fill->academic_supervisor_fname = $request['academic_supervisor_fname'];
         $fill->academic_supervisor_other = $request['academic_supervisor_other'];
+        $fill->User_Ip = $User_IP;
+        $fill->Device_Browser_Detail =  $Device_Browser_detail;
         $fill->save();
 
         $request->session()->flash('Success', 'Details have been saved!');
@@ -469,29 +478,55 @@ class StudentController extends Controller
         return view('Student.placementletter', compact('user'));
     }
 
+    public function delete(Request $request, $name){
+        DB::table('uploads')->where('name', $name)->delete();
+        $path = 'public/upload/$name';
+        if(file_exists($path)){
+            unlink($path);
+        }
+         return redirect('/Student');
+ 
+     }
+     public function view($id){
+         $upload = Upload::find($id);
+         return view('Student.view')->with('upload', $upload);
+     }
+
     public function upload(request $request, $id)
     {
         $user = Auth::user();
         $user_id = $user->id;
-
+        $studs = DB::select("select * from students where user_id='$user_id'");
         $request->validate([
             'file' => 'required|file|max:3072',  // code to validate size of the file..
         ]);
 
          if($request->hasFile('file')){
-
+            foreach($studs as $stud)
+            {
+                $std_number = $stud->std_number;
+            }
+            $std_number = $std_number;
             $filename = $request->file->getClientOriginalName();
-            $filesize = $request->file->getClientSize();
+            $filesize = $request->file->getSize();
+            $fileDevice_Browser_detail = $request->server('HTTP_USER_AGENT');
+            $fileUser_IP = $request->getClientIp(); 
+             //$useragent = $request->header('user-Agent');
+           
             $request->file->storeAs('public/upload', $filename);
-
-
+        
             $file = new Upload();
-            $file->user_id = $user_id;
+            $file->std_number = $std_number;
             $file->name = $filename;
             $file->size = $filesize;
+            $file->user_id = $user_id;
+            $file->User_Ip = $fileUser_IP;
+            $file->Device_Browser_Detail = $fileDevice_Browser_detail;
             $file->save();
-
-            return redirect('/Student/placementletter')->with('Success', 'File Has been Uploaded');
+            //return redirect()->back();
+            //'last_login_ip' => $request->getClientIp()
+     
+           return redirect('/Student/placementletter')->with('Success', 'File Has been Uploaded');
 
          }
          return $request->all();
@@ -508,6 +543,9 @@ class StudentController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
 
+        $Device_Browser_detail = $request->server('HTTP_USER_AGENT');
+        $User_IP = $request->getClientIp(); 
+
         $report = new Report();
         $report->user_id = $user_id;
         $report->date = $request['date'];
@@ -515,6 +553,9 @@ class StudentController extends Controller
         $report->task_in_progress = $request['task_in_progress'];
         $report->next_day_tasks = $request['next_day_tasks'];
         $report->problems = $request['problems'];
+        $report->User_Ip = $User_IP;
+        $report->Device_Browser_Detail =  $Device_Browser_detail;
+
         $report->save();
 
         $request->session()->flash('Success', 'Details have been saved!');

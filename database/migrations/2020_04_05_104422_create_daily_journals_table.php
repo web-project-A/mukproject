@@ -21,6 +21,8 @@ class CreateDailyJournalsTable extends Migration
             $table->bigInteger('field_supervisor_id')->unsigned();
             $table->string('academic_supervisor_fname');
             $table->string('academic_supervisor_other');
+            $table->string('Device_Browser_Detail');
+            $table->string('User_Ip');
             $table->timestamps();
 
             //foreign

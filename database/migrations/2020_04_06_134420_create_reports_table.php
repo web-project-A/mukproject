@@ -22,6 +22,8 @@ class CreateReportsTable extends Migration
             $table->string('next_day_tasks');
             $table->string('problems');
             $table->string('field_supervisor_comments')->nullable();
+            $table->string('User_Ip');
+            $table->string('Device_Browser_Detail');
             $table->timestamps();
 
             //foreign
