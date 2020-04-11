@@ -1,5 +1,6 @@
 <?php
-
+use App\Mail\Registration;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,15 @@
 
 Route::get('/', function () {
     return view('auth.login');
+});
+
+Route::get('/email', function () {
+    Mail::to('email@email.com')->send(new Registration());
+    return new Registration();
+});
+
+Route::get('/registerfieldsupervisor', function () {
+    return view('auth.registerfieldsupervisor');
 });
 
 Route::get('/placementDetailsEdit', 'StudentController@show');

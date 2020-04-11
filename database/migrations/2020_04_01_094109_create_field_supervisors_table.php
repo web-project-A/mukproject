@@ -18,6 +18,7 @@ class CreateFieldSupervisorsTable extends Migration
             $table->string('fname');
             $table->string('other');
             $table->string('phonenumber')->nullable();
+            $table->string('field_email')->nullable();
             $table->bigInteger('org_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->timestamps();

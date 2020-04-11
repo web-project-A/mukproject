@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Mail\Registration;
+use Illuminate\Support\Facades\Mail;
 
 use App\Student;
 use App\Organisation;
@@ -112,11 +114,18 @@ class StudentController extends Controller
             'field_supervisor_other' => 'required|string|max:255',
             'organisation' => 'required|string|max:255',
             'contact' => 'required|min:9|max:14',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
             'email' => 'required|email|string|max:255'
         ]);
 
+        $phoneCode = $request['phoneCode'];
+        $phonenumber = $request['phonenumber'];
+        $phonenumber = $phoneCode . $phonenumber;
+
         $fname = $request->input('field_supervisor_fname');
         $other = $request->input('field_supervisor_other');
+        $field_email = $request->input('field_email');
         $address = $request->input('address');
         $org_name = $request->input('organisation');
         $start = $request->input('start_date');
@@ -146,8 +155,13 @@ class StudentController extends Controller
                 $field_supervisor = new Field_supervisor();
                 $field_supervisor->fname = $fname;
                 $field_supervisor->other = $other;
+                $field_supervisor->phonenumber = $phonenumber;
+                $field_supervisor->field_email = $field_email;
                 $field_supervisor->org_id = $org_id;
                 $field_supervisor->save();
+
+                Mail::to($field_email)->send(new Registration());
+                //dd($field_email);
 
                 $fieldsups = DB::select("select * from field_supervisors where fname='$fname' and org_id=$org_id");
                 foreach($fieldsups as $fieldsup){
@@ -189,8 +203,13 @@ class StudentController extends Controller
                 $field_supervisor = new Field_supervisor();
                 $field_supervisor->fname = $fname;
                 $field_supervisor->other = $other;
-                $field_supervisor->org_id = $org_id;
+                $field_supervisor->phonenumber = $phonenumber;
+                $field_supervisor->field_email = $field_email;
+                $field_supervisor->org_id = $organ_id;
                 $field_supervisor->save();
+
+                Mail::to($field_email)->send(new Registration());
+                //dd($field_email);
 
                 $field_sups = DB::select("select * from field_supervisors where fname='$fname', other='$other' and org_id=$org_id");
                 foreach($field_sups as $field_sup){
@@ -206,23 +225,122 @@ class StudentController extends Controller
 
     public function placementedit(Request $request, $id)
     {
+        $fname = $request->input('field_supervisor_fname');
+        $other = $request->input('field_supervisor_other');
+        $phonenumber = $request->input('phonenumber');
+        $field_email = $request->input('field_email');
         $start = $request->input('start_date');
         $end = $request->input('end_date');
+        $org_name = $request->input('organisation');
         $address = $request->input('address');
         $additional = $request->input('additional_information');
         $region = $request->input('region');
         $city = $request->input('city');
         $number = $request->input('contact');
         $email = $request->input('email');
+
         $studs = DB::select("select * from students where user_id=$id");
         foreach($studs as $stud)
         {
             $org_id = $stud->org_id;
+            $field_id = $stud->field_supervisor_id;
         }
-        DB::update("update students set start_date=?, end_date=? where user_id=?", [$start, $end, $id]);
-        DB::update("update organisations set address=?, additional_address_info=?, region=?, city=?, phonenumber=?, email=? where id=?", [$address, $additional, $region, $city, $number, $email, $org_id]);
-        $request->session()->flash('Success', 'Details have been saved!');
-        return redirect()->back();
+
+        $orgs = DB::select("select * from organisations where address='$address' and name='$org_name'");
+        if(!empty($orgs))
+        {
+            foreach($orgs as $org){
+                $org_id = $org->id;
+            }
+            $fields = DB::select("select * from field_supervisors where field_email='$field_email' and org_id=$org_id"); 
+            if(!empty($fields))
+            {
+                foreach($fields as $field){
+                    $field_supervisor_id = $field->id;
+                }
+                DB::update("update students set org_id=?, field_supervisor_id=?, start_date=?, end_date=? where user_id=?", [$org_id, $field_supervisor_id, $start, $end, $id]);
+                DB::update("update field_supervisors set fname=?, other=?, phonenumber=? where field_email=?", [$fname, $other, $phonenumber, $field_email]);
+                
+                $request->session()->flash('Success', 'Details have been saved!');
+                return redirect()->back();
+            }else{
+                foreach($orgs as $org){
+                    $org_id = $org->id;
+                }
+
+                $field_supervisor = new Field_supervisor();
+                $field_supervisor->fname = $fname;
+                $field_supervisor->other = $other;
+                $field_supervisor->phonenumber = $phonenumber;
+                $field_supervisor->field_email = $field_email;
+                $field_supervisor->org_id = $org_id;
+                $field_supervisor->save();
+
+                Mail::to($field_email)->send(new Registration());
+
+                $fieldsups = DB::select("select * from field_supervisors where fname='$fname' and org_id=$org_id");
+                foreach($fieldsups as $fieldsup){
+                    $fieldsup_id = $fieldsup->id;
+                }
+                DB::update("update students set org_id=?, field_supervisor_id=?, start_date=?, end_date=? where user_id=?", [$org_id, $fieldsup_id, $start, $end, $id]);
+
+                $request->session()->flash('Success', 'Details have been saved!');
+                return redirect()->back();
+            }
+        }
+        else
+        {
+            $organisation = new Organisation();
+            $organisation->name = $org_name;
+            $organisation->address = $address;
+            $organisation->additional_address_info = request('additional_information');
+            $organisation->region = request('region');
+            $organisation->city = request('city');
+            $organisation->phonenumber = request('contact');
+            $organisation->email = request('email');
+            $organisation->save();
+
+            $organs = DB::select("select * from organisations where address='$address' and name='$org_name'");
+            foreach($organs as $organ){
+                $organ_id = $organ->id;
+            }
+
+            $fields = DB::select("select * from field_supervisors where field_email='$field_email' and org_id=$organ_id"); 
+            if(!empty($fields))
+            {
+                foreach($fields as $field){
+                    $field_supervisor_id = $field->id;
+                }
+                DB::update("update students set org_id=?, field_supervisor_id=?, start_date=?, end_date=? where user_id=?", [$organ_id, $field_supervisor_id, $start, $end, $id]);
+                DB::update("update field_supervisors set fname=?, other=?, phonenumber=? where field_email=?", [$fname, $other, $phonenumber, $field_email]);
+                
+                $request->session()->flash('Success', 'Details have been saved!');
+                return redirect()->back();
+            }else{
+                foreach($orgs as $org){
+                    $org_id = $org->id;
+                }
+
+                $field_supervisor = new Field_supervisor();
+                $field_supervisor->fname = $fname;
+                $field_supervisor->other = $other;
+                $field_supervisor->phonenumber = $phonenumber;
+                $field_supervisor->field_email = $field_email;
+                $field_supervisor->org_id = $org_id;
+                $field_supervisor->save();
+
+                Mail::to($field_email)->send(new Registration());
+
+                $fieldsups = DB::select("select * from field_supervisors where fname='$fname' and org_id=$org_id");
+                foreach($fieldsups as $fieldsup){
+                    $fieldsup_id = $fieldsup->id;
+                }
+                DB::update("update students set org_id=?, field_supervisor_id=?, start_date=?, end_date=? where user_id=?", [$org_id, $fieldsup_id, $start, $end, $id]);
+
+                $request->session()->flash('Success', 'Details have been saved!');
+                return redirect()->back();
+            }
+        }
     }
 
     public function logbook()
@@ -235,15 +353,33 @@ class StudentController extends Controller
             $field_supervisor_id = $student->field_supervisor_id;
             $org_id = $student->org_id;
         }
-        $organisations = DB::select("select * from organisations where id=$org_id");
-        $field_supervisors = DB::select("select * from field_supervisors where id=$field_supervisor_id");
+
+        if($org_id != null && $field_supervisor_id != null)
+        {
+            $organisations = DB::select("select * from organisations where id=$org_id");
+            $field_supervisors = DB::select("select * from field_supervisors where id=$field_supervisor_id");
+
+        }else{
+            $organisations = 0;
+            $field_supervisors = 0;
+        }
 
         $logbooks = DB::select("select * from daily_journals where user_id=$user_id");
         if(!empty($logbooks))
         {
-            return view('Student.dailyJournalEdit', compact('user', 'students', 'organisations', 'field_supervisors', 'logbooks'));
+            if($organisations == 0 && $field_supervisors == 0)
+            {
+                return view('Student.dailyJournalEdit1', compact('user', 'students', 'logbooks'));
+            }else{
+                return view('Student.dailyJournalEdit', compact('user', 'students', 'organisations', 'field_supervisors', 'logbooks'));
+            }
         }else{
-            return view('Student.dailyJournal', compact('user', 'students', 'organisations', 'field_supervisors'));
+            if($organisations == 0 && $field_supervisors == 0)
+            {
+                return view('Student.dailyJournal1', compact('user', 'students'));
+            }else{
+                return view('Student.dailyJournal', compact('user', 'students', 'organisations', 'field_supervisors'));
+            }
         }
     }
 
