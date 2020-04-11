@@ -24,11 +24,20 @@ class StudentController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index()
     {
-
         $user = Auth::user();
         $user_id = $user->id;
+
+        $uploads = DB::select("select * from uploads where user_id=$user_id");
+        if(!empty($uploads))
+        {
+            $upload_check = 'checked';
+        }else{
+            $upload_check = '';
+        }
+
         $placementDetails = DB::select("select * from students where user_id=$user_id");
         foreach($placementDetails as $placementDetail){
             $start_date = $placementDetail->start_date;
@@ -53,10 +62,10 @@ class StudentController extends Controller
         {
             $report_number = $report->number;
         }
-        $user = Auth::user();
-        $file = DB::table('uploads')->get();
-        $upload = DB::table('uploads')->get();
-        $display = DB::table('uploads')->get();
+        
+        $file = DB::table('uploads')->where('user_id', '=', $user_id)->get();
+        $upload = DB::table('uploads')->where('user_id', '=', $user_id)->get();
+        $display = DB::table('uploads')->where('user_id', '=', $user_id)->get();
 
         return view('Student.home', compact('upload_check', 'user', 'placement_check', 'daily_check', 'report_number','file','upload','display'));
     }
@@ -502,21 +511,15 @@ class StudentController extends Controller
         ]);
 
          if($request->hasFile('file')){
-            foreach($studs as $stud)
-            {
-                $std_number = $stud->std_number;
-            }
-            $std_number = $std_number;
+
             $filename = $request->file->getClientOriginalName();
             $filesize = $request->file->getSize();
             $fileDevice_Browser_detail = $request->server('HTTP_USER_AGENT');
             $fileUser_IP = $request->getClientIp(); 
              //$useragent = $request->header('user-Agent');
-           
             $request->file->storeAs('public/upload', $filename);
         
             $file = new Upload();
-            $file->std_number = $std_number;
             $file->name = $filename;
             $file->size = $filesize;
             $file->user_id = $user_id;
