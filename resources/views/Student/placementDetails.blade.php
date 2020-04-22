@@ -36,7 +36,52 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror   
-                    </div>                 
+                    </div>     
+
+                    <div class="form-group"><label for="phoneCode" class=" form-control-label">{{ __('Phone Code') }}</label>
+                        <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode" autofocus>
+                                      <option value="+256">+256</option>
+                                      <option value="+254">+254</option>
+                                      <option value="+257">+255</option>
+                                      <option value="+253">+250</option>
+                                      <option value="+253">+263</option>
+                                      <option value="+253">+258</option>
+                                      <option value="+253">+248</option>
+                                      <option value="+253">+257</option>
+                                      <option value="+253">+20</option>
+                                      <option value="+253">+233</option>
+                                      <option value="+253">+234</option>
+                                      <option value="+253">+211</option>
+                                      <option value="+253">+27</option>
+                                      <option value="+253">+221</option>
+                                      <option value="+253">+237</option>
+                                      <option value="+253">+267</option>
+                                      <option value="+253">+244</option>
+                                      <option value="+253">+86</option>
+                                      <option value="+253">+91</option>
+                        </select>
+                        @error('phoneCode')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                         @enderror
+                    </div>   
+
+                    <div class="form-group"><label for="phonenumber" class=" form-control-label">{{ __("Field Supervisor's Phone Number") }}</label><input name="phonenumber" value="{{ old('phonenumber') }}" type="text" id="phonenumber" placeholder="" required class="form-control @error('phonenumber') is-invalid @enderror">
+                        @error('phonenumber')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror   
+                    </div>      
+
+                    <div class="form-group"><label for="field_email" class=" form-control-label">{{ __("Field Supervisor's Email Address") }}</label><input name="field_email" value="{{ old('field_email') }}" type="text" id="field_email" placeholder="" required class="form-control @error('field_email') is-invalid @enderror">
+                        @error('field_email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror   
+                    </div>         
                     
                     <div class="form-group"><label for="start_date" class=" form-control-label">{{ __('Start Date') }}</label><input name="start_date" value="{{ old('start_date') }}" type="date" id="start_date" placeholder="yyyy/MM/dd" required class="form-control @error('start_date') is-invalid @enderror">
                         @error('start_date')

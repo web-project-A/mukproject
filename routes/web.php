@@ -1,5 +1,6 @@
 <?php
-
+use App\Mail\Registration;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,17 @@ Route::get('/Student/reupload', function () {
     return view('Student.reupload');
 });
 Route::get('/Student/viewdocuments', 'StudentController@viewplacement');
+
+Route::get('/email', function () {
+    Mail::to('email@email.com')->send(new Registration());
+    return new Registration();
+});
+
+Route::get('/registerfieldsupervisor', function () {
+    return view('auth.registerfieldsupervisor');
+});
+
+Route::get('/placementDetailsEdit', 'StudentController@show');
 
 Route::post('/reupload/{id}', 'StudentController@upload');
 Route::post('/delete/{name}', 'StudentController@delete');

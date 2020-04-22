@@ -27,9 +27,9 @@
           <tbody>
             <tr>
               <td>Placement Letter</td>
-              <td><input type="checkbox"  value="yes" class="btn btn-success btn-circle btn-sm"></td>
+              <td><input type="checkbox" @php echo $upload_check; @endphp value="yes" class="btn btn-success btn-circle btn-sm"></td>
               <td>
-                <button type="" class="btn btn-primary" onclick="location.href='/Student/viewdocuments'">Edit</button>  
+                <button type="" class="btn btn-primary" onclick="location.href='/Student/viewdocuments'">Edit</button>
               </td>
             </tr>
             <tr>
@@ -63,7 +63,6 @@
       </div>
     </div>
   </div>
-                            
   
 <div class="card">
        @foreach($upload as $upload)
@@ -76,7 +75,7 @@
         @foreach($file as $file)
      @if($file->user_id == $user->id)
           <div class="container">
-       <h6>{{ $file->name }}</h6> </a>
+       <h6>->{{ $file->name }}</h6> </a>
             </div>              
         @endif
          @endforeach               
@@ -84,7 +83,7 @@
      </div> <br>
      @foreach($display as $display)
          @if($display->user_id == $user->id)
-            <a class="btn btn-primary" href="/Student/placementletter">{{ __('Re-upload') }}</a> 
+            <a class="btn btn-primary" href="/Student/placementletter">{{ __('Upload') }}</a> 
                @break
           @endif
      @endforeach
