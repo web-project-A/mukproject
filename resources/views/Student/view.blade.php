@@ -3,6 +3,7 @@
 @section('title', 'File')
 
 @section('content')
+
 <div class="container">
     <div class="form">
         <div class="card">
@@ -20,17 +21,21 @@
                                 </div>
                         @endif
                         <div class="container">
-                            <h6>{{ $upload->name}}</h6> 
+                        <h6>{{ $upload->name}}</h6> 
                         </div> 
-                    <form method="post"  action="/delete/{{$upload->name}}">
-                            @csrf 
-                            <div class="container">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Delete') }}
-                                </button>      
-                            </div>
-                        
-                        </form>     
+                       <form method="get"  action="/view/{{$upload->name}}">
+                           <div class="container">
+                                <button type="submit" class="btn btn-primary" >View File</button>      
+                           </div> 
+                       </form>
+                       <br>  
+                       <form method="post" action="/delete/{{$upload->name}}/">
+                        @csrf 
+                        <div class="container">
+                            <button type="submit" class="btn btn-primary">Delete</button>      
+                        </div>
+                    </form>
+                     
                 </div>
             </div>
         </div>

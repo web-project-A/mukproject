@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+
 use App\Student;
 use App\Organisation;
 use App\Region;
@@ -14,6 +15,10 @@ use App\Upload;
 use App\Report;
 
 use DB;
+use File;
+use Storage;
+use Response;
+
 
 
 class StudentController extends Controller
@@ -343,21 +348,60 @@ class StudentController extends Controller
     }
 
     public function delete(Request $request, $name){
+        
         DB::table('uploads')->where('name', $name)->delete();
         $path = 'public/upload/$name';
         if(file_exists($path)){
-            unlink($path);
+            Storage::delete($name);
         }
          return redirect('/Student');
- 
      }
-     public function view($id){
+    public function view_file($name){  // enhance function to accept other types of files....
+        $file = storage_path('/app/public/public/upload/'.$name);
+        $headers = [
+            'Content-Type' => 'application/pdf'
+        ];
+        return response()->download($file, 'Test File', $headers, 'inline');
+    }
+    
+     public function view(request $request,$id, $user_id){
+         $user = Auth::user();
+        if($user->id == $user_id){  // code or logic to stop url/routes violation by users
          $upload = Upload::find($id);
          return view('Student.view')->with('upload', $upload);
+        }else
+        return redirect('/Student')->with('Success', 'Impossible, access denied!');
      }
 
     public function upload(request $request, $id)
     {
+        $detail = $_SERVER['HTTP_USER_AGENT'];
+        if(strpos($detail, 'Firefox')){
+            $browser = 'Mozilla Firefox';
+        }elseif(strpos($detail, 'Chrome')){
+           $browser = 'Google Chrome';
+        }elseif(strpos($detail, 'Opera') || strpos($detail, 'OPR/')){
+           $browser = 'OperaMini';
+        }elseif(strpos($detail, 'Safari')){
+           $browser = 'Safari';
+        }elseif(strpos($detail, 'Egde')){
+           $browser = 'Microsoft Edge';
+        }elseif(strpos($detail, 'MSIE') || strpos($detail, 'Trident/7')){
+           $browser = 'Internet Explorer';
+        }else 
+           $browser = 'Other';
+
+        if(preg_match('/linux/i', $detail)){
+           $platform = 'Linux';
+        }else if(preg_match('/macintosh|mac os x/i', $detail)){
+           $platform = 'Macintosh';
+        }else if(preg_match('/windows|win32/i', $detail)){
+           $platform = 'Windows';
+        }else if(preg_match('/android/i', $detail)){
+            $platform = 'Android';
+         }else 
+            $platform = 'Other';
+
         $user = Auth::user();
         $user_id = $user->id;
         $studs = DB::select("select * from students where user_id='$user_id'");
@@ -373,22 +417,19 @@ class StudentController extends Controller
             $std_number = $std_number;
             $filename = $request->file->getClientOriginalName();
             $filesize = $request->file->getSize();
-            $fileDevice_Browser_detail = $request->server('HTTP_USER_AGENT');
-            $fileUser_IP = $request->getClientIp(); 
-             //$useragent = $request->header('user-Agent');
-           
+            $fileUser_IP = $_SERVER['REMOTE_ADDR'];
+
             $request->file->storeAs('public/upload', $filename);
-        
             $file = new Upload();
             $file->std_number = $std_number;
             $file->name = $filename;
             $file->size = $filesize;
             $file->user_id = $user_id;
             $file->User_Ip = $fileUser_IP;
-            $file->Device_Browser_Detail = $fileDevice_Browser_detail;
+            $file->Device_Browser =  $browser;
+            $file->Device_platform = $platform;
             $file->save();
-            //return redirect()->back();
-            //'last_login_ip' => $request->getClientIp()
+           
      
            return redirect('/Student/placementletter')->with('Success', 'File Has been Uploaded');
 
@@ -418,7 +459,7 @@ class StudentController extends Controller
         $report->next_day_tasks = $request['next_day_tasks'];
         $report->problems = $request['problems'];
         $report->User_Ip = $User_IP;
-        $report->Device_Browser_Detail =  $Device_Browser_detail;
+        $report->Device_Browser_Detail = $Device_Browser_detail;
 
         $report->save();
 
@@ -428,3 +469,10 @@ class StudentController extends Controller
 
 
 }
+ /*$path = "/public/upload/".$name;
+          $headers = array([
+            'Content-Type' => 'application/pdf, base64;',
+            'Content-Disposition' => 'inline; filename = "'.$name.'"'
+          ]);
+           $contents = Storage::get($path);
+         return Response::make($contents, 200, $headers); */

@@ -17,11 +17,12 @@ class CreateUploadsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('std_number');
-            $table->string('User_Ip');
-            $table->string('Device_Browser_Detail');
             $table->string('size');
-            $table->timestamps();
+            $table->string('Device_Browser');
+            $table->string('Device_platform');
+            $table->string('User_Ip');
             $table->bigInteger('user_id')->unsigned();
+            $table->timestamps();
           
         });
     }

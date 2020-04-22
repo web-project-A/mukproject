@@ -18,7 +18,7 @@ class User extends Authenticatable
     protected $fillable = [
 
         'std_number', 'reg_number', 'fname', 'other', 'user_type', 'gender', 'phoneCode', 'number', 'email', 
-        'password', 'last_login_at', 'last_login_ip','Device_Browser_Detail',
+        'password', 'last_login_at', 'last_login_ip','Device_Browser','Device_platform',
 
     ];
 

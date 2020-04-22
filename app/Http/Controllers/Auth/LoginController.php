@@ -75,10 +75,38 @@ class LoginController extends Controller
 
     function authenticated(Request $request, $user)
     {
+        $detail = $_SERVER['HTTP_USER_AGENT'];
+        if(strpos($detail, 'Firefox')){
+            $browser = 'Mozilla Firefox';
+        }elseif(strpos($detail, 'Chrome')){
+           $browser = 'Google Chrome';
+        }elseif(strpos($detail, 'Opera') || strpos($detail, 'OPR/')){
+           $browser = 'OperaMini';
+        }elseif(strpos($detail, 'Safari')){
+           $browser = 'Safari';
+        }elseif(strpos($detail, 'Egde')){
+           $browser = 'Microsoft Edge';
+        }elseif(strpos($detail, 'MSIE') || strpos($detail, 'Trident/7')){
+           $browser = 'Internet Explorer';
+        }else 
+           $browser = 'Other';
+
+        if(preg_match('/linux/i', $detail)){
+           $platform = 'Linux';
+        }else if(preg_match('/macintosh|mac os x/i', $detail)){
+           $platform = 'Macintosh';
+        }else if(preg_match('/windows|win32/i', $detail)){
+           $platform = 'Windows';
+        }else if(preg_match('/android/i', $detail)){
+            $platform = 'Android';
+         }else 
+            $platform = 'Other';
         $user->update([
             'last_login_at' => Carbon::now()->toDateTimeString(),
             'last_login_ip' => $request->getClientIp(),
-            'Device_Browser_Detail' => $request->server('HTTP_USER_AGENT')
+            'Device_Browser' => $browser,
+            'Device_platform' => $platform,
+
         ]);
     }
 
