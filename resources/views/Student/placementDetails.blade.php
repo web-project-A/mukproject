@@ -39,7 +39,7 @@
                     </div>     
 
                     <div class="form-group"><label for="phoneCode" class=" form-control-label">{{ __('Phone Code') }}</label>
-                        <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode" autofocus>
+                        <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode">
                                       <option value="+256">+256</option>
                                       <option value="+254">+254</option>
                                       <option value="+257">+255</option>
@@ -133,10 +133,10 @@
 
                     <div class="form-group"><label for="region" class=" form-control-label">{{ __('Region') }}</label>
 
-                        <select id="region" type="text" class="form-control @error('region') is-invalid @enderror dynamic" name="region" value="{{ old('region') }}" data-dependent="city" required autocomplete="region">
+                        <select id="region" type="text" class="form-control @error('region') is-invalid @enderror dynamic" name="region" value="{{ old('region') }}" data-dependent="town" required autocomplete="region">
                             <option value="">Select Region</option>
                             @foreach($regions as $region)
-                            <option value="{{$region->region}}">{{$region->region}}</option>
+                            <option value="{{$region->region}}" {{ old('region') == $region->region ? 'selected' : ''}}>{{$region->region}}</option>
                             @endforeach
                         </select>
                         @error('region')
@@ -146,11 +146,11 @@
                          @enderror
                     </div>
 
-                    <div class="form-group"><label for="city" class=" form-control-label">{{ __('City') }}</label>
-                        <select name="city" value="{{ old('city') }}" type="text" id="city" required class="form-control @error('city') is-invalid @enderror">
-                            <option value="">Select City</option>
+                    <div class="form-group"><label for="town" class=" form-control-label">{{ __('Town') }}</label>
+                        <select name="town" value="{{ old('town') }}" type="text" id="town" required class="form-control @error('town') is-invalid @enderror">
+                            <option value="">Select Town</option>
                         </select>
-                        @error('city')
+                        @error('town')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

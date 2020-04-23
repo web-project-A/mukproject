@@ -28,7 +28,8 @@ class Registration extends Mailable
      */
     public function build()
     {
-        return $this->from("ttalemwacollins@gmail.com")
+        return $this->subject('Subject: Makerere University Internship Program')
+                    ->from("ttamalecollins@gmail.com")
                     ->markdown('auth.registerfield');
     }
 }

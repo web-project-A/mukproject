@@ -22,7 +22,7 @@ Route::get('/Student/reupload', function () {
 Route::get('/Student/viewdocuments', 'StudentController@viewplacement');
 
 Route::get('/email', function () {
-    Mail::to('email@email.com')->send(new Registration());
+    Mail::to('ttalemwacollins@gmail.com')->send(new Registration());
     return new Registration();
 });
 
@@ -59,6 +59,11 @@ Route::get('/Student', 'StudentController@index');
 Route::get('/Student/dailyJournal', 'StudentController@logbook');
 Route::get('/Student/report', 'StudentController@report');
 Route::get('/back', 'UserController@back');
+Route::get('/Student/reportedit', 'StudentController@reportedit');
+Route::get('/Student/reportedit1/{id}', 'StudentController@reportedit1');
+Route::get('/Field/assess', 'FieldController@assess');
+Route::get('/Field/viewreports1/{id}', 'FieldController@viewreports1');
+Route::get('/Field/viewreports2/{id}', 'FieldController@viewreports2');
 
 Route::post('/Studentplacement/{id}', 'StudentController@placement');
 Route::post('/fillJournal/{id}', 'StudentController@fillJournal');
@@ -66,8 +71,10 @@ Route::post('/editJournal/{id}', 'StudentController@editJournal');
 Route::post('/Studentorg', 'StudentController@org');
 Route::post('/placementletter/{id}', 'StudentController@upload');
 Route::post('/fillReport/{id}', 'StudentController@fillReport');
+Route::post('/fillReportEdit/{id}', 'StudentController@fillReportEdit');
 Route::post('/registration', 'Registration@register');
 Route::post('/Studentplacementedit/{id}', 'StudentController@placementedit');
+Route::post('/fieldFillReport/{id}', 'FieldController@fieldFillReport');
 
 Route::post('StudentController/fetch', 'StudentController@fetch')->name('StudentController.fetch');
 

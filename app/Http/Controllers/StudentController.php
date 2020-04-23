@@ -113,7 +113,7 @@ class StudentController extends Controller
         $value = $request->get('value');
         $dependent = $request->get('dependent');
         $data = DB::table('regions')->where($select, $value)->groupBy($dependent)->get();
-        $output = '<option value="">Select'.ucfirst($dependent).'</option>';
+        $output = '<option value="">Select '.ucfirst($dependent).'</option>';
         foreach($data as $row){
             $output.='<option value="'.$row->$dependent.'">'.$row->$dependent.'</option>';
         }
@@ -127,6 +127,7 @@ class StudentController extends Controller
             'field_supervisor_other' => 'required|string|max:255',
             'organisation' => 'required|string|max:255',
             'contact' => 'required|min:9|max:14',
+            'phonenumber' => 'required|min:9|max:10',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'email' => 'required|email|string|max:255'
@@ -159,7 +160,7 @@ class StudentController extends Controller
                 DB::update("update students set org_id=?, field_supervisor_id=?, start_date=?, end_date=? where user_id=?", [$org_id, $field_supervisor_id, $start, $end, $id]);
                 
                 $request->session()->flash('Success', 'Details have been saved!');
-                return redirect()->back();
+                return redirect('/Student');
             }else{
                 foreach($orgs as $org){
                     $org_id = $org->id;
@@ -183,7 +184,7 @@ class StudentController extends Controller
                 DB::update("update students set org_id=?, field_supervisor_id=?, start_date=?, end_date=? where user_id=?", [$org_id, $fieldsup_id, $start, $end, $id]);
 
                 $request->session()->flash('Success', 'Details have been saved!');
-                return redirect()->back();
+                return redirect('/Student');
             }
         }
         else
@@ -193,7 +194,7 @@ class StudentController extends Controller
             $organisation->address = $address;
             $organisation->additional_address_info = request('additional_information');
             $organisation->region = request('region');
-            $organisation->city = request('city');
+            $organisation->town = request('town');
             $organisation->phonenumber = request('contact');
             $organisation->email = request('email');
             $organisation->save();
@@ -211,7 +212,7 @@ class StudentController extends Controller
                 DB::update("update field_supervisors set org_id=? where fname=? and other=?", [$organ_id, $fname, $other]);
                 DB::update("update students set org_id=?, field_supervisor_id=?, start_date=?, end_date=? where user_id=?", [$organ_id, $fieldsupervisor_id, $start, $end, $id]);
                 $request->session()->flash('Success', 'Details have been saved!');
-                return redirect()->back();
+                return redirect('/Student');
             }else{
                 $field_supervisor = new Field_supervisor();
                 $field_supervisor->fname = $fname;
@@ -224,20 +225,31 @@ class StudentController extends Controller
                 Mail::to($field_email)->send(new Registration());
                 //dd($field_email);
 
-                $field_sups = DB::select("select * from field_supervisors where fname='$fname', other='$other' and org_id=$org_id");
+                $field_sups = DB::select("select * from field_supervisors where fname='$fname', other='$other' and org_id=$organ_id");
                 foreach($field_sups as $field_sup){
                     $field_sup_id = $field_sup->id;
                 }
                 DB::update("update students set org_id=?, field_supervisor_id=?, start_date=?, end_date=? where user_id=?", [$org_id, $field_sup_id, $start, $end, $id]);
 
                 $request->session()->flash('Success', 'Details have been saved!');
-                return redirect()->back();
+                return redirect('/Student');
             }
         }
     }
 
     public function placementedit(Request $request, $id)
     {
+        $validate = $request->validate([
+            'field_supervisor_fname' => 'required|string|max:255',
+            'field_supervisor_other' => 'required|string|max:255',
+            'organisation' => 'required|string|max:255',
+            'contact' => 'required|min:9|max:14',
+            'phonenumber' => 'required|min:9|max:10',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'email' => 'required|email|string|max:255'
+        ]);
+
         $fname = $request->input('field_supervisor_fname');
         $other = $request->input('field_supervisor_other');
         $phonenumber = $request->input('phonenumber');
@@ -248,7 +260,7 @@ class StudentController extends Controller
         $address = $request->input('address');
         $additional = $request->input('additional_information');
         $region = $request->input('region');
-        $city = $request->input('city');
+        $town = $request->input('town');
         $number = $request->input('contact');
         $email = $request->input('email');
 
@@ -308,7 +320,7 @@ class StudentController extends Controller
             $organisation->address = $address;
             $organisation->additional_address_info = request('additional_information');
             $organisation->region = request('region');
-            $organisation->city = request('city');
+            $organisation->town = request('town');
             $organisation->phonenumber = request('contact');
             $organisation->email = request('email');
             $organisation->save();
@@ -448,7 +460,7 @@ class StudentController extends Controller
         $fill->save();
 
         $request->session()->flash('Success', 'Details have been saved!');
-        return redirect()->back();   
+        return redirect('/Student');   
     }
 
     public function editJournal(Request $request, $id)
@@ -541,8 +553,51 @@ class StudentController extends Controller
         return view('Student.weeklyReport', compact('user'));
     }
 
+    public function reportedit()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $reports = DB::select("select * from reports where user_id=$user_id");
+        if(!empty($reports)){
+            return view('Student.reportedit', compact('reports', 'user'));
+        }else{
+            return view('Student.weeklyReport', compact('user'));
+        }
+    }
+
+    public function reportedit1($id)
+    {
+        $reports = DB::select("select * from reports where id=$id");
+        return view('Student.reportedit1', compact('reports'));
+    }
+
+    public function fillReportEdit(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'date' => 'required|date|before_or_equal:now'
+        ]);
+
+
+        $date = $request->input('date');
+        $task_completed = $request->input('task_completed');
+        $task_in_progress = $request->input('task_in_progress');
+        $next_day_tasks = $request->input('next_day_tasks');
+        $problems = $request->input('problems');
+        $Device_Browser_detail = $request->server('HTTP_USER_AGENT');
+        $User_IP = $request->getClientIp(); 
+
+        DB::update("update reports set date=?, task_completed=?, task_in_progress=?, next_day_tasks=?, problems=?, Device_Browser_detail=?, User_Ip=? where id=?", [$date, $task_completed, $task_in_progress, $next_day_tasks, $problems, $Device_Browser_detail, $User_IP, $id]);
+
+        $request->session()->flash('Success', 'Details have been saved!');
+        return redirect('/Student/reportedit');
+    }
+
     public function fillReport(Request $request, $id)
     {
+        $validate = $request->validate([
+            'date' => 'required|date|before_or_equal:now'
+        ]);
+
         $user = Auth::user();
         $user_id = $user->id;
 
@@ -562,7 +617,7 @@ class StudentController extends Controller
         $report->save();
 
         $request->session()->flash('Success', 'Details have been saved!');
-        return redirect()->back();   
+        return redirect('/Student');   
     }
 
 

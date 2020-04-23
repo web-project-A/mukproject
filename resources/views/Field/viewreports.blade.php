@@ -41,6 +41,11 @@
                 <td>{{$student->course}}</td>
                 <td>{{$student->start_date}}</td>
                 <td>{{$student->end_date}}</td>
+                <td>
+                    <a href="/Field/viewreports1/{{$student->id}}">
+                        <button type="" class="btn btn-primary" >View Reports</button>
+                    </a>
+              </td>
             </tr>
             @endforeach
           </tbody>

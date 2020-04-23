@@ -112,6 +112,7 @@
 
                             <div class="col-md-6">
                                 <select id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ $student->gender }}" required autocomplete="gender" autofocus>
+                                <option value="{{ $student->gender }}">{{ $student->gender }}</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>

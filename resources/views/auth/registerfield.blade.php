@@ -4,7 +4,7 @@
 Greetings, this email is to notify you as a field supervisor to register for the Makerere University Internship System. Simply click the "Register" button below.
 
 @component('mail::button', ['url' => '/registerfieldsupervisor'])
-Reister
+Register
 @endcomponent
 
 Thanks,<br>
