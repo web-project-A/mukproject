@@ -34,7 +34,10 @@ Route::get('/placementDetailsEdit', 'StudentController@show');
 
 Route::post('/reupload/{id}', 'StudentController@upload');
 Route::post('/delete/{name}', 'StudentController@delete');
-Route::get('Student/view/{id}', 'StudentController@view');
+
+Route::get('/view/{name}', 'StudentController@view_file');
+
+Route::get('Student/view/{id}/{user_id}', 'StudentController@view');
 
 Route::get('/placementDetailsEdit', 'StudentController@show');
 Route::get('/dailyJournalEdit', 'StudentController@logbook');

@@ -14,6 +14,14 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-body">
+      @if(session()->has('Success'))
+      <div class="alert alert-success alert-block" role="">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+          <div class="card-body">
+              {{session()->get('Success')}}
+          </div>
+      </div>
+    @endif
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <tbody>

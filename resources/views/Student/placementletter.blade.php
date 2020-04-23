@@ -11,7 +11,7 @@
             <div class="card-header"><strong><h3>UPLOAD FILE</h3></strong></div>
 
                 <div class="card-body card-block">
-                    <form method="post" action="/placementletter/{{ $user-> id}}" enctype="multipart/form-data">
+                    <form method="post" action="/placementletter/{{ $user->id}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         @if(session()->has('Success'))
                                 <div class="alert alert-success alert-block" role="">

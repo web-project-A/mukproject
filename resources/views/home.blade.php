@@ -21,6 +21,7 @@
                     <p>Welcome, this is the the Registration Dashboard.</p>
                      Your Registration will be Confirmed within no time, sit tight!
                 </div>
+                
             </div>
         </div>
     </div>
