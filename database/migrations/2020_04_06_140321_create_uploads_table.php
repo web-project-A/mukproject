@@ -20,7 +20,6 @@ class CreateUploadsTable extends Migration
             $table->string('Device_Browser');
             $table->string('Device_platform');
             $table->string('User_Ip');
-            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
           
         });

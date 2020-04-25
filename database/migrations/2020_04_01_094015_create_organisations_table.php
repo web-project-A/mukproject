@@ -19,7 +19,7 @@ class CreateOrganisationsTable extends Migration
             $table->string('address');
             $table->string('additional_address_info');
             $table->string('region');
-            $table->string('city');
+            $table->string('town');
             $table->string('phonenumber');
             $table->string('email');
             $table->timestamps();

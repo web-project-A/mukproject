@@ -116,7 +116,7 @@
                          @enderror
                     </div>
 
-                    <div class="form-group"><label for="city" class=" form-control-label">{{ __('City') }}</label>
+                    <div class="form-group"><label for="city" class=" form-control-label">{{ __('Town') }}</label>
                     <input name="city" value="{{ $org->city }}" type="text" id="city" placeholder="" required class="form-control @error('city') is-invalid @enderror">
                         @error('city')
                             <span class="invalid-feedback" role="alert">

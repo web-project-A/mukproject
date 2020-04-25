@@ -29,7 +29,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Field">
         <div class="sidebar-brand-text mx-3"> <h1>Muk</h1> </div>
       </a>
 
@@ -44,8 +44,8 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" >
-          <span>Asess Student</span>
+        <a class="nav-link collapsed" href="/Field/assess" >
+          <span>Assess Student</span>
         </a>
       </li>
 
