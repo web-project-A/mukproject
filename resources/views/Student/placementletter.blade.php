@@ -5,10 +5,9 @@
 @section('content')
 <div class="container">
 
-
     <div class="form1">
         <div class="card">
-            <div class="card-header"><strong><h3>UPLOAD FILE</h3></strong></div>
+            <div class="card-header"><h3><strong>UPLOAD FILE</strong></h3></div>
 
                 <div class="card-body card-block">
                     <form method="post" action="/placementletter/{{ $user->id}}" enctype="multipart/form-data">

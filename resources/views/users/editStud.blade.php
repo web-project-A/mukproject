@@ -187,6 +187,13 @@
                                     {{ __('UPDATE') }}
                                 </button>
                             </div>
+                        </div> <br>
+                        <div class="form-group row mb-0">
+                            <div class="container-login100-form-btn">
+                                <button type="submit" class="login100-form-btn" onclick="location.href='/Student'">
+                                    {{ __('Back') }}
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

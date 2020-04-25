@@ -15,9 +15,7 @@ class CreateUploadsTable extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
             $table->string('name');
-            $table->string('std_number');
             $table->string('size');
             $table->string('Device_Browser');
             $table->string('Device_platform');

@@ -8,7 +8,7 @@ class Upload extends Model
 {
    protected $fillable = [
 
-        'std_number','User_Ip','user_id','Device_Browser','Device_platform',
+        'User_Ip','user_id','Device_Browser','Device_platform',
     ];
 
 }

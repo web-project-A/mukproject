@@ -14,6 +14,7 @@
         "barryvdh/laravel-dompdf": "^0.8.6",
         "fideloper/proxy": "^4.0",
         "goodnesskay/laravelpdfviewer": "^1.0",
+        "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.2"

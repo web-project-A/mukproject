@@ -493,29 +493,39 @@ class StudentController extends Controller
     }
 
     public function delete(Request $request, $name){
-        
+       
         DB::table('uploads')->where('name', $name)->delete();
         $path = 'public/upload/$name';
-        if(file_exists($path)){
+        $path1 = storage_path('/app/public/public/upload/'.$name);
+        if(Storage::exists($path1)){
             Storage::delete($name);
         }
-         return redirect('/Student');
+         return redirect('/Student')->with('Success', 'File has been deleted!');
      }
-    public function view_file($name){  // enhance function to accept other types of files....
-        $file = storage_path('/app/public/public/upload/'.$name);
-        $headers = [
-            'Content-Type' => 'application/pdf'
-        ];
-        return response()->download($file, 'Test File', $headers, 'inline');
+    public function view_file(Request $request, $name){   // enhance function to accept other types of files....
+    
+            $path = storage_path('/app/public/public/upload/'.$name);
+            $headers = array([
+                'Content-Type' => 'application/vnd.oasis.opendocument.text',
+                'Content-Type' => 'application/msword',
+                'Content-Type' => 'application/vnd.oasis.openxmlformats-officedocument.wordprocessingml.document',
+                'Content-Type' => 'application/vnd.ms-excel',
+                'Content-Type' => 'application/vnd.ms-powerpoint',
+                'Content-Type' => 'application/octet-stream', 
+                'Content-Type' => 'text/plain',
+                'Content-Disposition' => 'inline; filename = "'.$name.'"'
+       ]);
+            return response()->download($path, 'Test File', $headers, 'inline');  
+              
     }
     
      public function view(request $request,$id, $user_id){
-         $user = Auth::user();
+            $user = Auth::user();
         if($user->id == $user_id){  // code or logic to stop url/routes violation by users
-         $upload = Upload::find($id);
+            $upload = Upload::find($id);
          return view('Student.view')->with('upload', $upload);
         }else
-        return redirect('/Student')->with('Success', 'Impossible, access denied!');
+            return redirect('/Student')->with('Success', 'Impossible, access denied!');
      }
 
     public function upload(request $request, $id)
@@ -558,7 +568,8 @@ class StudentController extends Controller
 
             $filename = $request->file->getClientOriginalName();
             $filesize = $request->file->getSize();
-            $fileUser_IP = $_SERVER['REMOTE_ADDR'];
+            // $fileUser_IP = $_SERVER['REMOTE_ADDR'];
+            $fileUser_IP =  $request->ip();
 
             $request->file->storeAs('public/upload', $filename);
             $file = new Upload();
@@ -615,4 +626,17 @@ class StudentController extends Controller
             'Content-Disposition' => 'inline; filename = "'.$name.'"'
           ]);
            $contents = Storage::get($path);
-         return Response::make($contents, 200, $headers); */
+         return Response::make($contents, 200, $headers);
+         
+          /* if(strpos($filename, 'pdf')){
+            $file = storage_path('/app/public/public/upload/'.$name);
+            $headers = [
+            'Content-Type' => 'application/pdf',
+         ];
+         return response()->download($file, 'Test File', $headers, 'inline');
+       }else
+
+         else if(strpos($filename, 'PNG') || strpos($filename, 'png') || strpos($filename, 'jpg') || strpos($filename, 'jpeg')){
+             return redirect('/Student')->with('Success', 'Upload pdf Format Preferably.');
+         }else
+         */

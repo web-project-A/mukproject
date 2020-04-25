@@ -5,6 +5,10 @@
 @section('content')
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
     <div class="form">
         <div class="card">
             <div class="card-header"><h3><strong>File</strong></h3></div>
@@ -35,11 +39,15 @@
                             <button type="submit" class="btn btn-primary">Delete</button>      
                         </div>
                     </form>
-                     
+                    <div class="container">
+                        <button type="submit" class="btn btn-primary" style="float:right;" onclick="location.href='/Student/viewdocuments'">Back</button>      
+                    </div>   
                 </div>
             </div>
         </div>
     </div>
-    <div>
+</div>
+</div>
+</div>
 </div>
 @endsection
