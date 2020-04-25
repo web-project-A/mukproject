@@ -29,7 +29,7 @@
               <td>Placement Letter</td>
               <td><input type="checkbox" @php echo $upload_check; @endphp value="yes" class="btn btn-success btn-circle btn-sm"></td>
               <td>
-                <button type="" class="btn btn-primary" onclick="location.href='/Student/viewdocuments'">Re-Upload</button>
+                <button type="" class="btn btn-primary" onclick="location.href='/Student/viewdocuments'">Edit</button>
               </td>
             </tr>
             <tr>
