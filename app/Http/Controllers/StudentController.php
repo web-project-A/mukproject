@@ -20,6 +20,7 @@ use DB;
 use File;
 use Storage;
 use Response;
+use GeoIP;
 
 
 
@@ -32,6 +33,9 @@ class StudentController extends Controller
 
     public function index()
     {
+        //$arr_ip = geoIp()->getLocation($_SERVER['REMOTE_ADDR']); //getting location from IP address...
+        //$arr_ip = geoIp()->getLocation('102.80.17.127');
+        //dd($arr_ip);
         $user = Auth::user();
         $user_id = $user->id;
 
@@ -507,16 +511,17 @@ class StudentController extends Controller
     public function delete(Request $request, $name){
        
         DB::table('uploads')->where('name', $name)->delete();
-        $path = 'public/upload/$name';
-        $path1 = storage_path('/app/public/public/upload/'.$name);
-        if(Storage::exists($path1)){
-            Storage::delete($name);
+        $path = storage_path('app/public/upload/'.$name);
+       // $path = storage_path('app/public/public/upload/'.$name); // debate about this, if we should leave the files or not
+        if(File::exists($path)){
+            //File::delete($path);
         }
          return redirect('/Student')->with('Success', 'File has been deleted!');
      }
     public function view_file(Request $request, $name){   // enhance function to accept other types of files....
-    
-            $path = storage_path('/app/public/public/upload/'.$name);
+            
+            $path = storage_path('app/public/upload/'.$name);
+            //$path = storage_path('app/public/public/upload/'.$name);
             $headers = array([
                 'Content-Type' => 'application/vnd.oasis.opendocument.text',
                 'Content-Type' => 'application/msword',
@@ -682,6 +687,10 @@ class StudentController extends Controller
           ]);
            $contents = Storage::get($path);
          return Response::make($contents, 200, $headers);
+
+          $location = GeoIP::getLocation();
+             //$country = $location['country'];
+             echo  $location;
          
           /* if(strpos($filename, 'pdf')){
             $file = storage_path('/app/public/public/upload/'.$name);

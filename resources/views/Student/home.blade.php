@@ -76,7 +76,7 @@
         @foreach($file as $file)
      @if($file->user_id == $user->id)
           <div class="container">
-       <h6>->{{ $file->name }}</h6> </a>
+            <a href="/Student/view/{{ $file->id }}/{{ $file->user_id }}"><h6>{{ $file->name }}</h6> </a>
             </div>              
         @endif
          @endforeach               

@@ -36,7 +36,7 @@
                        <form method="post" action="/delete/{{$upload->name}}/">
                         @csrf 
                         <div class="container">
-                            <button type="submit" class="btn btn-primary">Delete</button>      
+                            <button type="submit" onclick=" return confirm('Are you sure?')" class="btn btn-primary">Delete</button>      
                         </div>
                     </form>
                     <div class="container">
