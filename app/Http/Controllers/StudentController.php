@@ -513,8 +513,9 @@ class StudentController extends Controller
         }
          return redirect('/Student');
      }
+
     public function view_file($name){  // enhance function to accept other types of files....
-        $file = storage_path('/app/public/public/upload/'.$name);
+        $file = storage_path('app/public/upload/'.$name);
         $headers = [
             'Content-Type' => 'application/pdf'
         ];
@@ -582,9 +583,7 @@ class StudentController extends Controller
             $file->Device_platform = $platform;
             $file->save();
            
-     
-           return redirect('/Student/placementletter')->with('Success', 'File Has been Uploaded');
-
+           return redirect('/Student')->with('Success', 'File Has been Uploaded');
          }
          return $request->all();
     }
