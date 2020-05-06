@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/Student/reupload', function () {
-    return view('Student.reupload');
-});
+
+Route::get('/Student/reupload', 'StudentController@reupload');
 Route::get('/Student/viewdocuments', 'StudentController@viewplacement');
 
 Route::get('/email', function () {
@@ -38,6 +37,7 @@ Route::post('/delete/{name}', 'StudentController@delete');
 Route::get('/view/{name}', 'StudentController@view_file');
 
 Route::get('Student/view/{id}/{user_id}', 'StudentController@view');
+Route::get('/Student/guidelines', 'StudentController@view_guidelines');
 
 Route::get('/placementDetailsEdit', 'StudentController@show');
 Route::get('/dailyJournalEdit', 'StudentController@logbook');
@@ -72,6 +72,8 @@ Route::post('/Studentplacement/{id}', 'StudentController@placement');
 Route::post('/fillJournal/{id}', 'StudentController@fillJournal');
 Route::post('/editJournal/{id}', 'StudentController@editJournal');
 Route::post('/Studentorg', 'StudentController@org');
+
+Route::post('/reupload/{{ $user->id}}', 'StudentController@upload');
 Route::post('/placementletter/{id}', 'StudentController@upload');
 Route::post('/fillReport/{id}', 'StudentController@fillReport');
 Route::post('/fillReportEdit/{id}', 'StudentController@fillReportEdit');

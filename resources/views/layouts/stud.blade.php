@@ -204,6 +204,9 @@
                                 <a class="dropdown-item" href="/studUsers">
                                         {{ __('Update Profile') }}
                                     </a>
+                                      <a class="dropdown-item" href="/Student/guidelines" target="_blanck">
+                                          {{ __('View Guidelines pdf') }}
+                                      </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

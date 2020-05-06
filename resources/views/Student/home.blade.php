@@ -22,6 +22,7 @@
           </div>
       </div>
     @endif
+    
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <tbody>
@@ -29,7 +30,7 @@
               <td>Placement Letter</td>
               <td><input type="checkbox" @php echo $upload_check; @endphp value="yes" class="btn btn-success btn-circle btn-sm"></td>
               <td>
-                <button type="" class="btn btn-primary" onclick="location.href='/Student/viewdocuments'">Edit</button>
+                <button type="" class="btn btn-primary" onclick="location.href='/Student/viewdocuments'">Re-upload</button>
               </td>
             </tr>
             <tr>

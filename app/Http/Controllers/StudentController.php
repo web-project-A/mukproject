@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Mail\Registration;
 use Illuminate\Support\Facades\Mail;
 
-
 use App\Student;
 use App\Organisation;
 use App\Region;
@@ -22,20 +21,15 @@ use Storage;
 use Response;
 use GeoIP;
 
-
-
 class StudentController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-
-    public function index()
-    {
-        //$arr_ip = geoIp()->getLocation($_SERVER['REMOTE_ADDR']); //getting location from IP address...
-        //$arr_ip = geoIp()->getLocation('102.80.17.127');
-        //dd($arr_ip);
+   
+    public function index(Request $request)
+    {   
         $user = Auth::user();
         $user_id = $user->id;
 
@@ -77,15 +71,6 @@ class StudentController extends Controller
         $display = DB::table('uploads')->where('user_id', '=', $user_id)->get();
 
         return view('Student.home', compact('upload_check', 'user', 'placement_check', 'daily_check', 'report_number','file','upload','display'));
-    }
-    
-    public function viewplacement()
-    {
-        $user = Auth::user();
-        $file = DB::table('uploads')->get();
-        $upload = DB::table('uploads')->get();
-        $display = DB::table('uploads')->get();
-        return view('Student.viewplacement', compact('user', 'file', 'upload', 'display'));
     }
 
     public function show()
@@ -455,8 +440,13 @@ class StudentController extends Controller
         }
 
         $Device_Browser_detail = $request->server('HTTP_USER_AGENT');
-        $User_IP = $request->getClientIp(); 
-
+        $User_IP = $request->ip();                                        // use if on localhost
+            /*$ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+              $ip_address = json_decode($ip_address);                             //to network to get real IP
+              foreach($ip_address as $key => $value){
+                 $realip = $value;
+             } */
+        
         $fill = new Daily_journal();
         $fill->user_id = $user_id;
         $fill->std_number = $std_number;
@@ -465,6 +455,7 @@ class StudentController extends Controller
         $fill->academic_supervisor_fname = $request['academic_supervisor_fname'];
         $fill->academic_supervisor_other = $request['academic_supervisor_other'];
         $fill->User_Ip = $User_IP;
+     // $fill->User_Ip = $realip;    // use if online
         $fill->Device_Browser_Detail =  $Device_Browser_detail;
         $fill->save();
 
@@ -502,6 +493,24 @@ class StudentController extends Controller
         return redirect()->back();
     }
 
+    public function viewplacement()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+
+        $uploads = DB::select("select * from uploads where user_id=$user_id");
+        if(empty($uploads))
+        {
+            $upload_check = "No files uploaded yet!";
+        }else
+            $upload_check = " ";
+        $user = Auth::user();
+        $file = DB::table('uploads')->get();
+        $upload = DB::table('uploads')->get();
+        $display = DB::table('uploads')->get();
+        return view('Student.viewplacement', compact('user', 'file', 'upload', 'display', 'upload_check'));
+    }
+
     public function placementLetter()
     {
         $user = Auth::user();
@@ -511,17 +520,17 @@ class StudentController extends Controller
     public function delete(Request $request, $name){
        
         DB::table('uploads')->where('name', $name)->delete();
-        $path = storage_path('app/public/upload/'.$name);
-       // $path = storage_path('app/public/public/upload/'.$name); // debate about this, if we should leave the files or not
+       // $path = storage_path('app/public/upload/'.$name);
+        $path = storage_path('app/public/public/upload/'.$name); // debate about this, if we should leave the files or not
         if(File::exists($path)){
             //File::delete($path);
         }
-         return redirect('/Student')->with('Success', 'File has been deleted!');
+         return redirect('/Student/reupload')->with('Success', 'File has been deleted!');
      }
     public function view_file(Request $request, $name){   // enhance function to accept other types of files....
             
-            $path = storage_path('app/public/upload/'.$name);
-            //$path = storage_path('app/public/public/upload/'.$name);
+           // $path = storage_path('app/public/upload/'.$name);
+            $path = storage_path('app/public/public/upload/'.$name);
             $headers = array([
                 'Content-Type' => 'application/vnd.oasis.opendocument.text',
                 'Content-Type' => 'application/msword',
@@ -540,11 +549,27 @@ class StudentController extends Controller
             $user = Auth::user();
         if($user->id == $user_id){  // code or logic to stop url/routes violation by users
             $upload = Upload::find($id);
-         return view('Student.view')->with('upload', $upload);
+            return view('Student.view')->with('upload', $upload);
         }else
-            return redirect('/Student')->with('Success', 'Impossible, access denied!');
+            return redirect('/Student')->with('Success', 'Access denied!');
      }
+     public function reupload()
+    {
+        $user = Auth::user();
+        return view('Student.reupload', compact('user'));
+    }
 
+    public function view_guidelines()
+    {
+        $name = 'field_attachment_guidelines.pdf'; 
+        $path = storage_path('app/'.$name);
+            $headers = array([
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename = "'.$name.'"'
+       ]);
+            return response()->download($path, 'Test File', $headers, 'inline');  
+    }
+     
     public function upload(request $request, $id)
     {
         $detail = $_SERVER['HTTP_USER_AGENT'];
@@ -576,30 +601,32 @@ class StudentController extends Controller
 
         $user = Auth::user();
         $user_id = $user->id;
-        $studs = DB::select("select * from students where user_id='$user_id'");
+
         $request->validate([
-            'file' => 'required|file|max:3072',  // code to validate size of the file..
+            'file' => 'required|file|max:3072',  
         ]);
 
          if($request->hasFile('file')){
-
             $filename = $request->file->getClientOriginalName();
             $filesize = $request->file->getSize();
-            // $fileUser_IP = $_SERVER['REMOTE_ADDR'];
-            $fileUser_IP =  $request->ip();
-
+            //$fileUser_IP =  $request->ip();                                         // use if on localhost
+            $ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+              $ip_address = json_decode($ip_address);                             //to network to get real IP
+              foreach($ip_address as $key => $value){
+                 $realip = $value;
+             } 
             $request->file->storeAs('public/upload', $filename);
             $file = new Upload();
             $file->name = $filename;
             $file->size = $filesize;
             $file->user_id = $user_id;
-            $file->User_Ip = $fileUser_IP;
+            $file->User_Ip = $realip;    // use if online
+           // $file->User_Ip = $fileUser_IP;    // use if on localhost
             $file->Device_Browser =  $browser;
             $file->Device_platform = $platform;
             $file->save();
-           
-     
-           return redirect('/Student/placementletter')->with('Success', 'File Has been Uploaded');
+
+           return redirect('/Student')->with('Success', 'File Has been Uploaded');
 
          }
          return $request->all();
@@ -635,14 +662,19 @@ class StudentController extends Controller
             'date' => 'required|date|before_or_equal:now'
         ]);
 
-
         $date = $request->input('date');
         $task_completed = $request->input('task_completed');
         $task_in_progress = $request->input('task_in_progress');
         $next_day_tasks = $request->input('next_day_tasks');
         $problems = $request->input('problems');
         $Device_Browser_detail = $request->server('HTTP_USER_AGENT');
-        $User_IP = $request->getClientIp(); 
+        $User_IP = $request->ip();                                          // use if on localhost
+        /*$ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+          $ip_address = json_decode($ip_address);                             //to network to get real IP
+          foreach($ip_address as $key => $value){
+             $realip = $value;
+         } */
+     // $report->User_Ip = $realip;            // use if online
 
         DB::update("update reports set date=?, task_completed=?, task_in_progress=?, next_day_tasks=?, problems=?, Device_Browser_detail=?, User_Ip=? where id=?", [$date, $task_completed, $task_in_progress, $next_day_tasks, $problems, $Device_Browser_detail, $User_IP, $id]);
 
@@ -660,8 +692,13 @@ class StudentController extends Controller
         $user_id = $user->id;
 
         $Device_Browser_detail = $request->server('HTTP_USER_AGENT');
-        $User_IP = $request->getClientIp(); 
-
+        $fileUser_IP =  $request->ip();                                         // use if on localhost
+        /*$ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+          $ip_address = json_decode($ip_address);                             //to network to get real IP
+          foreach($ip_address as $key => $value){
+             $realip = $value;
+         } */
+        
         $report = new Report();
         $report->user_id = $user_id;
         $report->date = $request['date'];
@@ -669,7 +706,8 @@ class StudentController extends Controller
         $report->task_in_progress = $request['task_in_progress'];
         $report->next_day_tasks = $request['next_day_tasks'];
         $report->problems = $request['problems'];
-        $report->User_Ip = $User_IP;
+        $report->User_Ip = $fileUser_IP;
+     // $report->User_Ip = $realip;    // use if online
         $report->Device_Browser_Detail = $Device_Browser_detail;
 
         $report->save();
@@ -680,27 +718,13 @@ class StudentController extends Controller
 
 
 }
- /*$path = "/public/upload/".$name;
-          $headers = array([
-            'Content-Type' => 'application/pdf, base64;',
-            'Content-Disposition' => 'inline; filename = "'.$name.'"'
-          ]);
-           $contents = Storage::get($path);
-         return Response::make($contents, 200, $headers);
+ /*
 
-          $location = GeoIP::getLocation();
-             //$country = $location['country'];
-             echo  $location;
-         
-          /* if(strpos($filename, 'pdf')){
-            $file = storage_path('/app/public/public/upload/'.$name);
-            $headers = [
-            'Content-Type' => 'application/pdf',
-         ];
-         return response()->download($file, 'Test File', $headers, 'inline');
-       }else
-
-         else if(strpos($filename, 'PNG') || strpos($filename, 'png') || strpos($filename, 'jpg') || strpos($filename, 'jpeg')){
-             return redirect('/Student')->with('Success', 'Upload pdf Format Preferably.');
-         }else
+ $arr_ip = json_encode(geoIp()->getLocation($realip)->toArray());  //getting location from IP address...
+   $arr_ip = json_decode($arr_ip);
+   foreach($arr_ip as $key => $value){
+    if($key == 'ip') {
+        $ipv = $value;
+        echo "Ip is: ", $ipv;
+   }
          */

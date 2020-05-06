@@ -36,12 +36,11 @@
                        <form method="post" action="/delete/{{$upload->name}}/">
                         @csrf 
                         <div class="container">
-                            <button type="submit" onclick=" return confirm('Are you sure?')" class="btn btn-primary">Delete</button>      
+                            <a class="btn btn-primary"  style="float:right;"  href="/Student/viewdocuments">{{ __('Back') }}</a> 
+                            <button type="submit" onclick="return confirm('Are you sure? This will delete the current file.')" onclick="location.href='/Student/reupload'" class="btn btn-primary">Re-upload</button>      
                         </div>
                     </form>
-                    <div class="container">
-                        <button type="submit" class="btn btn-primary" style="float:right;" onclick="location.href='/Student/viewdocuments'">Back</button>      
-                    </div>   
+                    
                 </div>
             </div>
         </div>

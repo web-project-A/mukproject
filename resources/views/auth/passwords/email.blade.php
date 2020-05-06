@@ -1,5 +1,6 @@
 @extends('layouts.template')
 
+@section('title', 'Reset')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

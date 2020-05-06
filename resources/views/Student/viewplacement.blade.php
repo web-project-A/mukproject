@@ -15,6 +15,10 @@
                 <div class="panel-body"> 
                     <div class="form">
                          <div class="card">
+                            <div class="container"><br>
+                            <h5> @php echo $upload_check; @endphp </h5>
+                        </div>
+                           
                             @foreach($upload as $upload)
                             @if($upload->user_id == $user->id)
                                 <h4 class="card-header"><strong>Uploaded Documents</strong></h4>
@@ -40,7 +44,7 @@
                     <br>
                     @foreach($display as $display)
                     @if($display->user_id == $user->id)
-                    <a class="btn btn-primary" href="/Student/placementletter">{{ __('Re-upload') }}</a> 
+                   
                     <button type="submit" class="btn btn-primary" style="float:right;" onclick="location.href='/Student'">Back</button>      
                         @break
                     @endif
