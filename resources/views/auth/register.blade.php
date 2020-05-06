@@ -53,10 +53,7 @@
                                 <select onchange="checkIfStudent()" id="user_type" type="text" class="form-control @error('user_type') is-invalid @enderror" name="user_type" value="{{ old('user_type') }}" required autocomplete="user_type" autofocus>
                                     <option id="" value="">Choose User Type</option>
                                     <option id="Student" value="Student">Student</option>
-                                    <option id="Academic Supervisor" value="Academic Supervisor">Academic Supervisor</option>
-                                    <option id="Departmental Supervisor" value="Departmental Supervisor">Departmental Supervisor</option>
-                                    <option id="Regional Supervisor" value="Regional Supervisor">Regional Supervisor</option>
-                                    <option id="Overall Internship Coordinator" value="Overall Internship Coordinator">Overall Internship Coordinator</option>
+                                    <option id="Faculty Member" value="Faculty Member">Faculty Member</option>
                                 </select>
                                 @error('user_type')
                                     <span class="invalid-feedback" role="alert">

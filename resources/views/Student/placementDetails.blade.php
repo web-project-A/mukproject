@@ -39,26 +39,26 @@
                     </div>     
 
                     <div class="form-group"><label for="phoneCode" class=" form-control-label">{{ __('Phone Code') }}</label>
-                        <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode">
-                                      <option value="+256">+256</option>
-                                      <option value="+254">+254</option>
-                                      <option value="+257">+255</option>
-                                      <option value="+253">+250</option>
-                                      <option value="+253">+263</option>
-                                      <option value="+253">+258</option>
-                                      <option value="+253">+248</option>
-                                      <option value="+253">+257</option>
-                                      <option value="+253">+20</option>
-                                      <option value="+253">+233</option>
-                                      <option value="+253">+234</option>
-                                      <option value="+253">+211</option>
-                                      <option value="+253">+27</option>
-                                      <option value="+253">+221</option>
-                                      <option value="+253">+237</option>
-                                      <option value="+253">+267</option>
-                                      <option value="+253">+244</option>
-                                      <option value="+253">+86</option>
-                                      <option value="+253">+91</option>
+                        <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" id="phoneCode" required autocomplete="phoneCode">
+                                      <option value="+256" {{ old('phoneCode') == "+256" ? 'selected' : '' }}>+256</option>
+                                      <option value="+254" {{ old('phoneCode') == "+254" ? 'selected' : '' }}>+254</option>
+                                      <option value="+255" {{ old('phoneCode') == "+255" ? 'selected' : '' }}>+255</option>
+                                      <option value="+250" {{ old('phoneCode') == "+250" ? 'selected' : '' }}>+250</option>
+                                      <option value="+263" {{ old('phoneCode') == "+263" ? 'selected' : '' }}>+263</option>
+                                      <option value="+258" {{ old('phoneCode') == "+258" ? 'selected' : '' }}>+258</option>
+                                      <option value="+248" {{ old('phoneCode') == "+248" ? 'selected' : '' }}>+248</option>
+                                      <option value="+5" {{ old('phoneCode') == "+5" ? 'selected' : '' }}>+5</option>
+                                      <option value="+20" {{ old('phoneCode') == "+20" ? 'selected' : '' }}>+20</option>
+                                      <option value="+233" {{ old('phoneCode') == "+233" ? 'selected' : '' }}>+233</option>
+                                      <option value="+234" {{ old('phoneCode') == "+234" ? 'selected' : '' }}>+234</option>
+                                      <option value="+211" {{ old('phoneCode') == "+211" ? 'selected' : '' }}>+211</option>
+                                      <option value="+27" {{ old('phoneCode') == "+27" ? 'selected' : '' }}>+27</option>
+                                      <option value="+221" {{ old('phoneCode') == "+221" ? 'selected' : '' }}>+221</option>
+                                      <option value="+237" {{ old('phoneCode') == "+237" ? 'selected' : '' }}>+237</option>
+                                      <option value="+267" {{ old('phoneCode') == "+267" ? 'selected' : '' }}>+267</option>
+                                      <option value="+244" {{ old('phoneCode') == "+244" ? 'selected' : '' }}>+244</option>
+                                      <option value="+86" {{ old('phoneCode') == "+86" ? 'selected' : '' }}>+86</option>
+                                      <option value="+91" {{ old('phoneCode') == "+91" ? 'selected' : '' }}>+91</option>
                         </select>
                         @error('phoneCode')
                         <span class="invalid-feedback" role="alert">

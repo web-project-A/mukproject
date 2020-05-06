@@ -14,10 +14,10 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->string('std_number')->unique();
-            $table->string('reg_number')->unique();
+            $table->string('std_number', 20)->unique();
+            $table->string('reg_number', 20)->unique();
             $table->primary('std_number', 'reg_number');
-            $table->string('course');
+            $table->string('course', 50);
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('org_id')->unsigned()->nullable();
             $table->bigInteger('field_supervisor_id')->unsigned()->nullable();
@@ -28,7 +28,7 @@ class CreateStudentsTable extends Migration
             //foreign
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('org_id')->references('id')->on('organisations')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('field_supervisor_id')->references('id')->on('field_supervisors')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('field_supervisor_id')->references('user_id')->on('field_supervisors')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

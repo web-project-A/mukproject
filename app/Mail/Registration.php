@@ -16,9 +16,12 @@ class Registration extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $users;
+
+    public function __construct($users)
     {
-        //
+        $this->users = $users;
     }
 
     /**

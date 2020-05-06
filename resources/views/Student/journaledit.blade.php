@@ -1,5 +1,5 @@
-@extends('layouts.field')
-@section('title', 'Weekly Progress Report')
+@extends('layouts.stud')
+@section('title', 'Daily Journal')
 @section('content')
  <!-- Page Wrapper -->
  <div id="wrapper">
@@ -8,7 +8,7 @@
 <div class="container-fluid">
 
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Reports of {{$fname}} {{$other}}</h1>
+  <h1 class="h3 mb-2 text-gray-800">DAILY JOURNALS</h1>
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
 
@@ -32,19 +32,21 @@
                     <th>Next Day's Tasks</th>
                     <th>Problems/challenges</th>
                     <th>Field Supervisor's Comment</th>
+                    <th>Score</th>
                 </tr>
             </thead>
           <tbody>
-          @foreach($reports as $report)
+          @foreach($journals as $journal)
             <tr>
-                <td>{{$report->date}}</td>
-                <td>{{$report->task_completed}}</td>
-                <td>{{$report->task_in_progress}}</td>
-                <td>{{$report->next_day_tasks}}</td>
-                <td>{{$report->problems}}</td>
-                <td>{{$report->field_supervisor_comments}}</td>
+                <td>{{$journal->date}}</td>
+                <td>{{$journal->task_completed}}</td>
+                <td>{{$journal->task_in_progress}}</td>
+                <td>{{$journal->next_day_tasks}}</td>
+                <td>{{$journal->problems}}</td>
+                <td>{{$journal->field_supervisor_comments}}</td>
+                <td>{{$journal->score}}</td>
                 <td>
-                    <a href="/Field/viewreports2/{{$report->id}}">
+                    <a href="/Student/journaledit1/{{$journal->id}}">
                         <button type="" class="btn btn-primary" >Edit</button>
                     </a>
               </td>

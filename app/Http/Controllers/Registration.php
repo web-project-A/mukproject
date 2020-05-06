@@ -9,8 +9,21 @@ use App\Student;
 use App\Field_supervisor;
 use DB;
 
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 class Registration extends Controller
 {
+    use RegistersUsers;
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
     public function register(Request $request)
     {
         $validate = $request->validate([
@@ -28,20 +41,29 @@ class Registration extends Controller
         $phoneCode = $request['phoneCode'];
         $number = $request['number'];
         $phonenumber = $phoneCode . $number;
+
+        if($request['gender'] == 'Male'){
+            $gender = 'M';
+        }else{
+            $gender = 'F';
+        }
+
         if($request['user_type'] == 'Student')
         {
             $validate = $request->validate([
                 'std_number' => 'required|string|max:10|min:10|unique:students',
                 'reg_number' => 'required|string|max:255|unique:students',
             ]);
+            $role = 6;
 
             $user = new User();
             $user->fname = $fname;
             $user->other = $other;
-            $user->user_type = $request['user_type'];
-            $user->gender = $request['gender'];
+            $user->role = $role;
+            $user->gender = $gender;
             $user->phonenumber = $phonenumber;
             $user->email = $request['email'];
+            $user->user_approved = 'True';
             $user->password = bcrypt($request['password']);
             $user->save();
 
@@ -61,54 +83,58 @@ class Registration extends Controller
         } 
         elseif($request['user_type'] == 'Field Supervisor')
         {
+            $role = 5;
+
             $user = new User();
             $user->fname = $request['fname'];
             $user->other = $request['other'];
-            $user->user_type = $request['user_type'];
-            $user->gender = $request['gender'];
+            $user->role = $role;
+            $user->gender = $gender;
             $user->phonenumber = $phonenumber;
             $user->email = $request['email'];
             $user->password = bcrypt($request['password']);
             $user->save();
 
             $users = DB::table('users')->where('fname', $fname)->where('other', $other)->get();
-            foreach($users as $user)
-            {
+            foreach($users as $user){
                 $user_id = $user->id;
             }
 
-            $fields = DB::select("select * from field_supervisors where fname='$fname' and other='$other'");
-            if(!empty($fields)){
-                foreach($fields as $field){
-                    $field_id = $field->id;
-                }
-                DB::update("update field_supervisors set phonenumber=?, user_id=? where id=?", [$phonenumber, $user_id, $field_id]);
-                
-                return redirect('/')->with('Success', 'You have been Registered!');
-            }else{
-                $field_supervisor = new Field_supervisor;
-                $field_supervisor->fname = $fname;
-                $field_supervisor->other = $other;
-                $field_supervisor->phonenumber = $phonenumber;
-                $field_supervisor->user_id = $user_id;
-                $field_supervisor->save();
+            $field_supervisor = new Field_supervisor;
+            $field_supervisor->user_id = $user_id;
+            $field_supervisor->save();
     
-                return redirect('/')->with('Success', 'You have been Registered!');
-            }
+            return redirect('/')->with('Success', 'You have been Registered!');
         }
         else
         {
             $user = new User();
             $user->fname = $request['fname'];
             $user->other = $request['other'];
-            $user->user_type = $request['user_type'];
-            $user->gender = $request['gender'];
+            $user->gender = $gender;
             $user->phonenumber = $phonenumber;
             $user->email = $request['email'];
             $user->password = bcrypt($request['password']);
             $user->save();
             return redirect('/')->with('Success', 'You have been Registered!');
         }
+    }
+
+    public function fieldregister(Request $request, $id){
+        $validate = $request->validate([
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+
+        $password = bcrypt($request['password']);
+
+        if($request['gender'] == 'Male'){
+            $gender = 'M';
+        }else{
+            $gender = 'F';
+        }
+        
+        DB::update("update users set gender=?, password=? where id=?", [$gender, $password, $id]);
+        return redirect('/')->with('Success', 'You have been Registered!');
     }
 }
 

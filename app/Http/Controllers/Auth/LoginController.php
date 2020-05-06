@@ -101,17 +101,17 @@ class LoginController extends Controller
             $platform = 'Android';
          }else 
             $platform = 'Other';
-        $ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+       /* $ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
         $ip_address = json_decode($ip_address);                               //to network to get real IP
         foreach($ip_address as $key => $value){
             $realip = $value;
-        } 
+        } */
         $user->update([
             'last_login_at' => Carbon::now()->toDateTimeString(),
             'Device_Browser' => $browser,
             'Device_platform' => $platform,
             'last_login_ip' => $request->ip(),  // use if on localhost  
-           //'last_login_ip' =>  $realip,        // use if online
+            //'last_login_ip' =>  $realip,        // use if online
         ]);
     }
     

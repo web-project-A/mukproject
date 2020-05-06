@@ -1,6 +1,6 @@
 @extends('layouts.stud')
 
-@section('title', 'Daily Journal')
+@section('title', 'Weekly Progress Report')
 
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -9,8 +9,7 @@
     <div class="card">
         <div class="card-header"><strong><h3>DAILY JOURNAL</h3></strong></div>
             <div class="card-body card-block">
-            
-                <form method="POST" action="/fillJournal/{{ $user->id }}">
+                <form method="POST" action="/filljournal/{{$user->id}}">
 
                     {{ csrf_field() }}
                     @if(session()->has('Success'))
@@ -22,65 +21,45 @@
                             </div>
                         @endif
 
-                    @foreach($organisations as $organisation)
-                    <div class="form-group"><label for="org_name" class=" form-control-label">{{ __("Name of the Organisation") }}</label><input name="org_name" value="{{ $organisation->name }}" type="text" id="org_name" required class="form-control @error('org_name') is-invalid @enderror">
-                        @error('org_name')
+                    <div class="form-group"><label for="date" class=" form-control-label">{{ __("Date") }}</label><input name="date" value="{{ old('date') }}" type="date" id="date" required class="form-control @error('date') is-invalid @enderror">
+                        @error('date')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror   
-                    </div> 
-
-                    <div class="form-group"><label for="org_address" class=" form-control-label">{{ __("Organisation Address") }}</label><input name="org_address" value="{{ $organisation->address }}"  type="text" id="org_address" required class="form-control @error('org_address') is-invalid @enderror">
-                        @error('org_address')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror   
-                    </div> 
-
-                    <div class="form-group"><label for="org_number" class=" form-control-label">{{ __("Organisation Phone Number") }}</label><input name="org_number" value="{{ $organisation->phonenumber }}"  type="text" id="org_number" required class="form-control @error('org_number') is-invalid @enderror">
-                        @error('org_number')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror   
-                    </div> 
-                    @endforeach
-
-                    @foreach($field_supervisors as $field_supervisor)
-                    <div class="form-group"><label for="field_supervisor_fname" class=" form-control-label">{{ __("Field Supervisor's First Name") }}</label><input name="field_supervisor_fname" value="{{ $field_supervisor->fname }}" type="text" id="field_supervisor_fname" required class="form-control @error('field_supervisor_fname') is-invalid @enderror">
-                        @error('field_supervisor_fname')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror   
-                    </div>  
-
-                    <div class="form-group"><label for="field_supervisor_other" class=" form-control-label">{{ __("Field Supervisor's Other Names") }}</label><input name="field_supervisor_other" value="{{ $field_supervisor->other }}" type="text" id="field_supervisor_other" required class="form-control @error('field_supervisor_other') is-invalid @enderror">
-                        @error('field_supervisor_other')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror   
+                        @enderror
                     </div>
-                    @endforeach
 
-                    <div class="form-group"><label for="academic_supervisor_fname" class=" form-control-label">{{ __("Academic Supervisor's First Name") }}</label><input name="academic_supervisor_fname" value="{{ old('academic_supervisor_fname') }}" type="text" id="academic_supervisor_fname" required class="form-control @error('academic_supervisor_fname') is-invalid @enderror">
-                        @error('academic_supervisor_fname')
+                    <div class="form-group"><label for="task_completed" class=" form-control-label">{{ __("Task Completed") }}</label><textarea rows="10" cols="30" name="task_completed" value="{{ old('task_completed') }}" type="text" id="task_completed" required class="form-control @error('task_completed') is-invalid @enderror">{{ old('task_completed') }}</textarea>
+                        @error('task_completed')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group"><label for="task_in_progress" class=" form-control-label">{{ __("Tasks in Progress") }}</label><textarea rows="10" cols="30" name="task_in_progress" value="{{ old('task_in_progress') }}" type="text" id="task_in_progress" required class="form-control @error('task_in_progress') is-invalid @enderror">{{ old('task_in_progress') }}</textarea>
+                        @error('task_in_progress')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror   
-                    </div>         
-
-                    <div class="form-group"><label for="academic_supervisor_other" class=" form-control-label">{{ __("Academic Supervisor's Other Names") }}</label><input name="academic_supervisor_other" value="{{ old('academic_supervisor_other') }}" type="text" id="academic_supervisor_other" required class="form-control @error('academic_supervisor_other') is-invalid @enderror">
-                        @error('academic_supervisor_other')
+                    </div>     
+                    
+                    <div class="form-group"><label for="next_day_tasks" class=" form-control-label">{{ __("Next Day's Tasks") }}</label><textarea rows="10" cols="30" name="next_day_tasks" value="{{ old('next_day_tasks') }}" type="text" id="next_day_tasks" required class="form-control @error('next_day_tasks') is-invalid @enderror">{{ old('next_day_tasks') }}</textarea>
+                        @error('next_day_tasks')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror   
-                    </div>                                    
+                    </div>                                 
+
+                    <div class="form-group"><label for="problems" class=" form-control-label">{{ __("Problems/challenges") }}</label><textarea rows="10" cols="30" name="problems" value="{{ old('problems') }}" type="text" id="problems" required class="form-control @error('problems') is-invalid @enderror">{{ old('problems') }}</textarea>
+                        @error('problems')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror   
+                    </div> 
                     
                     <button type="submit" class="btn btn-primary" >Submit</button>
                     <button type="reset" class="btn btn-primary">Refresh</button>

@@ -1,6 +1,8 @@
 <?php
 use App\Mail\Registration;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +23,14 @@ Route::get('/Student/reupload', 'StudentController@reupload');
 Route::get('/Student/viewdocuments', 'StudentController@viewplacement');
 
 Route::get('/email', function () {
-    Mail::to('ttalemwacollins@gmail.com')->send(new Registration());
-    return new Registration();
+    $users = DB::select("select * from users where fname='Kenny'");
+    Mail::to('ttalemwacollins@gmail.com')->send(new Registration($users));
+    return new Registration($users);
 });
 
-Route::get('/registerfieldsupervisor', function () {
-    return view('auth.registerfieldsupervisor');
+Route::get('/registerfieldsupervisor/{id}', function ($id) {
+    $users = DB::select("select * from users where id=$id");
+    return view('auth.registerfieldsupervisor', compact('users'));
 });
 
 Route::get('/placementDetailsEdit', 'StudentController@show');
@@ -44,7 +48,7 @@ Route::get('/dailyJournalEdit', 'StudentController@logbook');
 Route::get('/Student/placementletter', 'StudentController@placementLetter');
 Route::get('/Student/placementDetails', 'StudentController@show');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -59,14 +63,14 @@ Route::get('/Department', 'DepartmentController@index');
 Route::get('/Academic', 'AcademicController@index');
 Route::get('/Field', 'FieldController@index');
 Route::get('/Student', 'StudentController@index');
-Route::get('/Student/dailyJournal', 'StudentController@logbook');
-Route::get('/Student/report', 'StudentController@report');
+Route::get('/Student/dailyJournal', 'StudentController@dailyJournal');
 Route::get('/back', 'UserController@back');
-Route::get('/Student/reportedit', 'StudentController@reportedit');
-Route::get('/Student/reportedit1/{id}', 'StudentController@reportedit1');
+Route::get('/Student/journaledit', 'StudentController@journaledit');
+Route::get('/Student/journaledit1/{id}', 'StudentController@journaledit1');
 Route::get('/Field/assess', 'FieldController@assess');
-Route::get('/Field/viewreports1/{id}', 'FieldController@viewreports1');
-Route::get('/Field/viewreports2/{id}', 'FieldController@viewreports2');
+Route::get('/Field/viewjournals1/{id}', 'FieldController@viewjournals1');
+Route::get('/Field/viewjournals2/{id}', 'FieldController@viewjournals2');
+Route::get('/viewStudentDetails/{id}', 'FieldController@viewStudentDetails');
 
 Route::post('/Studentplacement/{id}', 'StudentController@placement');
 Route::post('/fillJournal/{id}', 'StudentController@fillJournal');
@@ -75,11 +79,12 @@ Route::post('/Studentorg', 'StudentController@org');
 
 Route::post('/reupload/{{ $user->id}}', 'StudentController@upload');
 Route::post('/placementletter/{id}', 'StudentController@upload');
-Route::post('/fillReport/{id}', 'StudentController@fillReport');
-Route::post('/fillReportEdit/{id}', 'StudentController@fillReportEdit');
+Route::post('/filljournal/{id}', 'StudentController@filljournal');
+Route::post('/filljournalEdit/{id}', 'StudentController@filljournalEdit');
 Route::post('/registration', 'Registration@register');
+Route::post('/registration/{id}', 'Registration@fieldregister');
 Route::post('/Studentplacementedit/{id}', 'StudentController@placementedit');
-Route::post('/fieldFillReport/{id}', 'FieldController@fieldFillReport');
+Route::post('/fieldFillJournal/{id}', 'FieldController@fieldFillJournal');
 
 Route::post('StudentController/fetch', 'StudentController@fetch')->name('StudentController.fetch');
 
