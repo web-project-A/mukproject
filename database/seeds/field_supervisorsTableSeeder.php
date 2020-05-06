@@ -14,10 +14,6 @@ class field_supervisorsTableSeeder extends Seeder
     {
         DB::table('field_supervisors')->insert([
             [
-                'fname' => 'Golder',
-                'other' => 'Doki',
-                'phonenumber' => '+256786386635',
-                'field_email' => 'doki@gmail.com',
                 'user_id' => '3'            ]
         ]);
     }

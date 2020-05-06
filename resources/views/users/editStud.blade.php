@@ -112,9 +112,8 @@
 
                             <div class="col-md-6">
                                 <select id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ $student->gender }}" required autocomplete="gender" autofocus>
-                                <option value="{{ $student->gender }}">{{ $student->gender }}</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                    <option value="Male" @php if($student->gender == "M") echo 'selected="selected"'; @endphp>Male</option>
+                                    <option value="Female" @php if($student->gender == "F") echo 'selected="selected"'; @endphp>Female</option>
                                 </select>
                                 @error('gender')
                                     <span class="invalid-feedback" role="alert">
@@ -188,13 +187,6 @@
                                     {{ __('UPDATE') }}
                                 </button>
                             </div>
-                        </div> <br>
-                        <div class="form-group row mb-0">
-                            <div class="container-login100-form-btn">
-                                <button type="submit" class="login100-form-btn" onclick="location.href='/Student'">
-                                    {{ __('Back') }}
-                                </button>
-                            </div>
                         </div>
                     </form>
                 </div>
@@ -203,3 +195,12 @@
     </div>
 </div>
 @endsection
+<!--
+<div class="form-group row mb-0">
+                            <div class="container-login100-form-btn">
+                                <button type="submit" class="login100-form-btn" onclick="location.href='/Student'">
+                                    {{ __('Back') }}
+                                </button>
+                            </div>
+                        </div>
+                -->

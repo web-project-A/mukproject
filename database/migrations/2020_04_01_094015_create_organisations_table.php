@@ -15,13 +15,13 @@ class CreateOrganisationsTable extends Migration
     {
         Schema::create('organisations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('address');
+            $table->string('name', 50);
+            $table->string('address', 50);
             $table->string('additional_address_info');
-            $table->string('region');
-            $table->string('town');
-            $table->string('phonenumber');
-            $table->string('email');
+            $table->string('region', 50);
+            $table->string('town', 50);
+            $table->string('phonenumber', 15);
+            $table->string('email', 50);
             $table->timestamps();
         });
     }

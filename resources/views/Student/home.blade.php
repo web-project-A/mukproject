@@ -26,13 +26,6 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <tbody>
             <tr>
-              <td>Placement Letter</td>
-              <td><input type="checkbox" @php echo $upload_check; @endphp value="yes" class="btn btn-success btn-circle btn-sm"></td>
-              <td>
-                <button type="" class="btn btn-primary" onclick="location.href='/Student/viewdocuments'">Edit</button>
-              </td>
-            </tr>
-            <tr>
               <td>Placement Details</td>
               <td><input type="checkbox" @php echo $placement_check; @endphp  class="btn btn-success btn-circle btn-sm"></td>
               <td>
@@ -42,20 +35,18 @@
               </td>
             </tr>
             <tr>
-              <td>Daily Journal</td>
-              <td><input type="checkbox" @php echo $daily_check; @endphp  class="btn btn-success btn-circle btn-sm"></td>
+              <td>Placement Letter</td>
+              <td>@php echo $upload_number; @endphp</td>
               <td>
-                <a href="/dailyJournalEdit">
-                    <button type="" class="btn btn-primary" >Edit</button>
-                </a>
+                <button type="" class="btn btn-primary" onclick="location.href='/Student/viewdocuments'">Edit</button>
               </td>
             </tr>
             <tr>
-              <td>Reports</td>
-              <td>@php echo $report_number; @endphp</td>
+              <td>Daily Journals</td>
+              <td>@php echo $journal_number; @endphp</td>
               <td>
-                <a href="/Student/reportedit">
-                  <button type="" class="btn btn-primary" >Edit</button>
+                <a href="/Student/journaledit">
+                  <button type="" class="btn btn-primary" >View</button>
                 </a>
               </td>
             </tr>

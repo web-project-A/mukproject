@@ -18,13 +18,13 @@ class studentsTableSeeder extends Seeder
                 'reg_number' => '18/U/21135/PS',
                 'course' => 'BSE',
                 'user_id' => '1',
-                'field_supervisor_id' => '1'
+                'field_supervisor_id' => '3'
             ],[
                 'std_number' => '1800721090',
                 'reg_number' => '18/U/21090/PS',
                 'course' => 'BSE',
                 'user_id' => '2',
-                'field_supervisor_id' => '1'
+                'field_supervisor_id' => '3'
             ]
         ]);
     }

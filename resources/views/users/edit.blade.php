@@ -68,9 +68,8 @@
 
                             <div class="col-md-6">
                                 <select id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ $user->gender }}" required autocomplete="gender" autofocus>
-                                    <option value="{{ $user->gender }}">{{ $user->gender }}</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                    <option value="Male" @php if($user->gender == "M") echo 'selected="selected"'; @endphp>Male</option>
+                                    <option value="Female" @php if($user->gender == "F") echo 'selected="selected"'; @endphp>Female</option>
                                 </select>
                                 @error('gender')
                                     <span class="invalid-feedback" role="alert">

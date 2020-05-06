@@ -18,7 +18,7 @@ class FieldController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
     }
 
     public function index()
@@ -26,17 +26,24 @@ class FieldController extends Controller
       $user = Auth::user();
       $user_id = $user->id;
 
-      $field_ids = DB::select("select * from field_supervisors where user_id=$user_id");
-      foreach($field_ids as $field_id){
-        $field_sup_id = $field_id->id;
-      }
-
       $students = DB::table('students')
-                      ->where('field_supervisor_id', '=', $field_sup_id)
+                      ->where('field_supervisor_id', '=', $user_id)
                       ->leftJoin('users', 'students.user_id', '=', 'users.id')
                       ->get();
 
-      return view('Field.home', compact('user', 'students'));
+      $journals = DB::select("select * from journals where field_supervisor_id=$user_id and score IS NULL");
+
+      return view('Field.home', compact('user', 'students', 'journals'));
+    }
+
+    public function viewStudentDetails($id)
+    {
+      $students = DB::table('students')
+                      ->where('user_id', '=', $id)
+                      ->leftJoin('users', 'students.user_id', '=', 'users.id')
+                      ->get();
+
+      return view('Field.viewStudentDetails', compact('students'));
     }
 
     public function assess()
@@ -44,54 +51,57 @@ class FieldController extends Controller
       $user = Auth::user();
       $user_id = $user->id;
 
-      $field_ids = DB::select("select * from field_supervisors where user_id=$user_id");
-      foreach($field_ids as $field_id){
-        $field_sup_id = $field_id->id;
-      }
-
       $students = DB::table('students')
-                      ->where('field_supervisor_id', '=', $field_sup_id)
+                      ->where('field_supervisor_id', '=', $user_id)
                       ->leftJoin('users', 'students.user_id', '=', 'users.id')
                       ->get();
 
-      return view('Field.viewreports', compact('user', 'students'));
+      return view('Field.viewjournals', compact('user', 'students'));
     }
 
-    public function viewreports1($id)
+    public function viewjournals1(Request $request, $id)
     {
       $users = DB::select("select * from users where id=$id");
       foreach($users as $user){
         $fname = $user->fname;
         $other = $user->other;
       }
-      $reports = DB::select("select * from reports where user_id=$id");
-      return view('Field.viewreports1', compact('reports', 'fname', 'other'));
+
+      $journals = DB::select("select * from journals where user_id=$id");
+      if(!empty($journals)){
+        return view('Field.viewjournals1', compact('journals', 'fname', 'other'));
+      }else{
+        $request->session()->flash('Success', 'No Exisiting Daily Journals');
+        return redirect()->back();
+      }
     }
 
-    public function viewreports2($id)
+    public function viewjournals2($id)
     {
-      $reports = DB::select("select * from reports where id=$id");
-      foreach($reports as $report){
-        $user_id = $report->user_id;
+      $journals = DB::select("select * from journals where id=$id");
+      foreach($journals as $journal){
+        $user_id = $journal->user_id;
       }
       $users = DB::select("select * from users where id=$user_id");
       foreach($users as $user){
         $fname = $user->fname;
         $other = $user->other;
       }
-      return view('Field.viewreports2', compact('reports', 'fname', 'other'));
+      return view('Field.viewjournals2', compact('journals', 'fname', 'other'));
     }
 
-    public function fieldFillReport(Request $request, $id)
+    public function fieldFillJournal(Request $request, $id)
     {
       $field_supervisor_comments = $request->input('field_comment');
+      $score = $request->input('score');
       $Device_Browser_detail = $request->server('HTTP_USER_AGENT');
       $User_IP = $request->getClientIp(); 
 
-      DB::update("update reports set field_supervisor_comments=?, Device_Browser_detail=?, User_Ip=? where id=?", [$field_supervisor_comments, $Device_Browser_detail, $User_IP, $id]);
+      DB::update("update journals set field_supervisor_comments=?, score=?, Device_Browser_detail=?, User_Ip=? where id=?", [$field_supervisor_comments, $score, $Device_Browser_detail, $User_IP, $id]);
 
       $request->session()->flash('Success', 'Details have been saved!');
       return redirect()->back();
     }
+    
 }
 

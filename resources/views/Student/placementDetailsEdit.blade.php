@@ -47,7 +47,7 @@
                         @enderror   
                     </div>      
 
-                    <div class="form-group"><label for="field_email" class=" form-control-label">{{ __("Field Supervisor's Email Address") }}</label><input name="field_email" value="{{ $field->field_email }}" type="text" id="field_email" placeholder="" required class="form-control @error('field_email') is-invalid @enderror">
+                    <div class="form-group"><label for="field_email" class=" form-control-label">{{ __("Field Supervisor's Email Address") }}</label><input name="field_email" value="{{ $field->email }}" type="text" id="field_email" placeholder="" required class="form-control @error('field_email') is-invalid @enderror">
                         @error('field_email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -116,9 +116,9 @@
                          @enderror
                     </div>
 
-                    <div class="form-group"><label for="city" class=" form-control-label">{{ __('Town') }}</label>
-                    <input name="city" value="{{ $org->city }}" type="text" id="city" placeholder="" required class="form-control @error('city') is-invalid @enderror">
-                        @error('city')
+                    <div class="form-group"><label for="town" class=" form-control-label">{{ __('Town') }}</label>
+                    <input name="town" value="{{ $org->town }}" type="text" id="town" placeholder="" required class="form-control @error('town') is-invalid @enderror">
+                        @error('town')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

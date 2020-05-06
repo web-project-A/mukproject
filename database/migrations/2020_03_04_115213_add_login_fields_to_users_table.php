@@ -15,7 +15,7 @@ class AddLoginFieldsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->datetime('last_login_at')->nullable();
-            $table->string('last_login_ip')->nullable();
+            $table->string('last_login_ip', 20)->nullable();
         });
     }
 

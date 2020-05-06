@@ -14,13 +14,9 @@ class CreateFieldSupervisorsTable extends Migration
     public function up()
     {
         Schema::create('field_supervisors', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('fname');
-            $table->string('other');
-            $table->string('phonenumber')->nullable();
-            $table->string('field_email')->nullable();
-            $table->bigInteger('org_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->primary('user_id');
+            $table->bigInteger('org_id')->unsigned()->nullable();
             $table->timestamps();
 
             //foreign

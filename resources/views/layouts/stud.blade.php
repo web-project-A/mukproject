@@ -66,17 +66,14 @@
         </div>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <span>FILL IN</span>
+        <a class="nav-link collapsed" href="/Student/dailyJournal" >
+          <span>Daily Journal</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-dark py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/Student/dailyJournal">Daily Journal</a>
-            <a class="collapse-item" href="#">Challenges</a>
-          </div>
-        </div>
       </li>
 
       <!-- Divider -->
@@ -96,15 +93,6 @@
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" >
             <span>Submit Evaluation Report</span>
-          </a>
-        </li>
-
-       <!-- Divider -->
-      <hr class="sidebar-divider">
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="/Student/report" >
-            <span>Report Writing Progress</span>
           </a>
         </li>
 

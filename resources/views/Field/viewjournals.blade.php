@@ -8,6 +8,16 @@
 <div class="container-fluid">
 
   <!-- Page Heading -->
+
+  @if(session()->has('Success'))
+        <div class="alert alert-success alert-block" role="">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+                <div class="card-body">
+                    {{session()->get('Success')}}
+                </div>
+        </div>
+    @endif
+
   <h1 class="h3 mb-2 text-gray-800">STUDENTS</h1>
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
@@ -18,14 +28,8 @@
                 <tr>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Gender</th>
-                    <th>Email Address</th>
-                    <th>Phone Number</th>
-                    <th>Student's Number</th>
                     <th>Registration Number</th>
                     <th>Course</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
                 </tr>
             </thead>
           <tbody>
@@ -33,17 +37,11 @@
             <tr>
                 <td>{{$student->fname}}</td>
                 <td>{{$student->other}}</td>
-                <td>{{$student->gender}}</td>
-                <td>{{$student->email}}</td>
-                <td>{{$student->phonenumber}}</td>
-                <td>{{$student->std_number}}</td>
                 <td>{{$student->reg_number}}</td>
                 <td>{{$student->course}}</td>
-                <td>{{$student->start_date}}</td>
-                <td>{{$student->end_date}}</td>
                 <td>
-                    <a href="/Field/viewreports1/{{$student->id}}">
-                        <button type="" class="btn btn-primary" >View Reports</button>
+                    <a href="/Field/viewjournals1/{{$student->id}}">
+                        <button type="" class="btn btn-primary" >View Journals</button>
                     </a>
               </td>
             </tr>
