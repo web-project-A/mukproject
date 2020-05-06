@@ -425,7 +425,8 @@ class StudentController extends Controller
         }
          return redirect('/Student/reupload')->with('Success', 'File has been deleted!');
      }
-    public function view_file(Request $request, $name){   // enhance function to accept other types of files....
+
+    public function view_file(Request $request, $name){   
             
            // $path = storage_path('app/public/upload/'.$name);
             $path = storage_path('app/public/public/upload/'.$name);
@@ -440,7 +441,6 @@ class StudentController extends Controller
                 'Content-Disposition' => 'inline; filename = "'.$name.'"'
        ]);
             return response()->download($path, 'Test File', $headers, 'inline');  
-              
     }
     
      public function view(request $request,$id, $user_id){
@@ -523,7 +523,9 @@ class StudentController extends Controller
             $file->Device_Browser =  $browser;
             $file->Device_platform = $platform;
             $file->save();
+     
            return redirect('/Student')->with('Success', 'File Has been Uploaded');
+
 
          }
          return $request->all();
