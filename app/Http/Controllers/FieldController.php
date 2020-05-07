@@ -18,7 +18,8 @@ class FieldController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        //$this->middleware(['auth', 'verified']);
+        $this->middleware('auth');
     }
 
     public function index()
@@ -95,7 +96,13 @@ class FieldController extends Controller
       $field_supervisor_comments = $request->input('field_comment');
       $score = $request->input('score');
       $Device_Browser_detail = $request->server('HTTP_USER_AGENT');
-      $User_IP = $request->getClientIp(); 
+      $User_IP = $request->ip();                                          // use if on localhost
+      /*$ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+        $ip_address = json_decode($ip_address);                             //to network to get real IP
+        foreach($ip_address as $key => $value){
+           $realip = $value;
+       } */
+   // $User_Ip = $realip;    // use if online
 
       DB::update("update journals set field_supervisor_comments=?, score=?, Device_Browser_detail=?, User_Ip=? where id=?", [$field_supervisor_comments, $score, $Device_Browser_detail, $User_IP, $id]);
 
