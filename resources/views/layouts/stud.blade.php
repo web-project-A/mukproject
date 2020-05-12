@@ -274,7 +274,7 @@
 
           <!-- Page Heading -->
 
-          <main class="">
+        <main class="">
             @yield('content')
         </main>
 

@@ -50,9 +50,6 @@
                     @endif
                 @endforeach
                 </div>
-                <a  href="/Student/guidelines" target="_blanck">
-                    {{ __('View Guidelines pdf') }}
-                </a>
             </div>
         </div>
     </div>
