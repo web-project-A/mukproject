@@ -25,8 +25,8 @@ class StudentController extends Controller
 {
     public function __construct()
     {
-       // $this->middleware(['auth', 'verified']);
-       $this->middleware('auth');
+       $this->middleware(['auth', 'verified']);
+       //$this->middleware('auth');
     }
    
     public function index(Request $request)
@@ -104,6 +104,38 @@ class StudentController extends Controller
         echo $output;
     }
 
+    public function match($field_email)
+    {
+        $matches = DB::select("select * from users where email='$field_email'");
+        foreach($matches as $match){
+            $user_id = $match->id;
+            $fname = $match->fname;
+            $other = $match->other;
+            $number = $match->phonenumber;
+        }
+
+        $fields = DB::select("select * from field_supervisors where user_id=$user_id");
+        foreach($fields as $field){
+            $org_id = $field->org_id;
+        }
+
+        if($org_id != null){
+            $organisations = DB::select("select * from organisations where id=$org_id");
+            foreach($organisations as $org){
+                $name = $org->name;
+                $address = $org->address;
+                $additional = $org->additional_address_info;
+                $region = '<option value="'.$org->region.'">'.$org->region.'</option>';
+                $town = '<option value="'.$org->town.'">'.$org->town.'</option>';
+                $contact = $org->phonenumber;
+                $org_email = $org->email;
+            }
+            return Response::json(['success'=>true, 'fname'=>$fname, 'other'=>$other, 'number'=>$number, 'name'=>$name, 'address'=>$address, 'additional'=>$additional, 'region'=>$region, 'town'=>$town, 'contact'=>$contact, 'org_email'=>$org_email]);
+        }else{
+            return Response::json(['success'=>true, 'fname'=>$fname, 'other'=>$other, 'number'=>$number]);
+        }
+    }
+
     public function placement(Request $request, $id)
     {
         $validate = $request->validate([
@@ -111,7 +143,7 @@ class StudentController extends Controller
             'field_supervisor_other' => 'required|string|max:255',
             'organisation' => 'required|string|max:255',
             'contact' => 'required|min:9|max:14',
-            'phonenumber' => 'required|min:9|max:10',
+            'phonenumber' => 'required|min:9|max:14',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'email' => 'required|email|string|max:255'

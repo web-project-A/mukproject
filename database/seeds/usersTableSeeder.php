@@ -41,7 +41,7 @@ class usersTableSeeder extends Seeder
                 'email' => 'doki@gmail.com',
                 'role' => '5',
                 'email_verified_at' => '2020-05-04 11:01:26',
-                'user_approved' => '',
+                'user_approved' => 'True',
                 'password' => bcrypt('doki1234')
             ]
         ]);

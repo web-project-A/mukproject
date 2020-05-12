@@ -87,4 +87,4 @@ Route::post('/Studentplacementedit/{id}', 'StudentController@placementedit');
 Route::post('/fieldFillJournal/{id}', 'FieldController@fieldFillJournal');
 
 Route::post('StudentController/fetch', 'StudentController@fetch')->name('StudentController.fetch');
-
+Route::get('/fetch/{field_email}', 'StudentController@match');

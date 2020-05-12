@@ -14,7 +14,9 @@ class field_supervisorsTableSeeder extends Seeder
     {
         DB::table('field_supervisors')->insert([
             [
-                'user_id' => '3'            ]
+                'user_id' => '3',
+                'org_id' => '1'
+            ]
         ]);
     }
 }

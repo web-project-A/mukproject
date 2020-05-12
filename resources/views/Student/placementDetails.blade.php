@@ -21,6 +21,14 @@
                             </div>
                         @endif
 
+                    <div class="form-group"><label for="field_email" class=" form-control-label">{{ __("Field Supervisor's Email Address") }}</label><input name="field_email" value="{{ old('field_email') }}" type="text" id="field_email" placeholder="" required class="form-control @error('field_email') is-invalid @enderror">
+                        @error('field_email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror   
+                    </div>  
+
                     <div class="form-group"><label for="field_supervisor_fname" class=" form-control-label">{{ __("Field Supervisor's First Name") }}</label><input name="field_supervisor_fname" value="{{ old('field_supervisor_fname') }}" type="text" id="field_supervisor_fname" placeholder="" required class="form-control @error('field_supervisor_fname') is-invalid @enderror">
                         @error('field_supervisor_fname')
                             <span class="invalid-feedback" role="alert">
@@ -73,15 +81,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror   
-                    </div>      
-
-                    <div class="form-group"><label for="field_email" class=" form-control-label">{{ __("Field Supervisor's Email Address") }}</label><input name="field_email" value="{{ old('field_email') }}" type="text" id="field_email" placeholder="" required class="form-control @error('field_email') is-invalid @enderror">
-                        @error('field_email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror   
-                    </div>         
+                    </div>             
                     
                     <div class="form-group"><label for="start_date" class=" form-control-label">{{ __('Start Date') }}</label><input name="start_date" value="{{ old('start_date') }}" type="date" id="start_date" placeholder="yyyy/MM/dd" required class="form-control @error('start_date') is-invalid @enderror">
                         @error('start_date')
@@ -186,6 +186,7 @@
 @endsection 
 @section('scripts')
 <script>
+    //fetching town in relation to selected region
 $(document).ready(function(){
     $('.dynamic').change(function(){
         if($(this).val() != '')
@@ -206,6 +207,33 @@ $(document).ready(function(){
         }
     });
 });
+
+//fetching field supervisor's details in relation to entered email
+$("#field_email").focusout(function(data) {
+        $.ajax({
+            url:"/fetch/" + $(this).val(),
+            method:"GET",
+            data:{},
+            success:function(data) {
+                if(data.success == true){
+                    $("#field_supervisor_fname").val(data.fname);
+                    $("#field_supervisor_lname").val(data.other);
+                    $("#phonenumber").val(data.number);
+                    $("#organisation").val(data.name);
+                    $("#address").val(data.address);
+                    $("#additional_information").val(data.additional);
+                    $("#region").html(data.region);
+                    $("#town").html(data.town);
+                    $("#contact").val(data.contact);
+                    $("#email").val(data.org_email);
+                }else{
+                    $("#field_supervisor_fname").val({{ old('field_supervisor_fname') }});
+                    $("#field_supervisor_lname").val({{ old('field_supervisor_other') }});
+                    $("#phonenumber").val({{ old('phonenumber') }});
+                }
+            }
+        });
+    });
 </script>
 @endsection
 
