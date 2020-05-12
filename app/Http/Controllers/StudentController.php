@@ -30,7 +30,12 @@ class StudentController extends Controller
     }
    
     public function index(Request $request)
-    {   
+    {  
+        $ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+        $ip_address = json_decode($ip_address);                             //to network to get real IP
+        foreach($ip_address as $key => $value){
+           $realip = $value;
+        } 
         $user = Auth::user();
         $user_id = $user->id;
 
@@ -539,19 +544,19 @@ class StudentController extends Controller
          if($request->hasFile('file')){
             $filename = $request->file->getClientOriginalName();
             $filesize = $request->file->getSize();
-            $fileUser_IP =  $request->ip();                                         // use if on localhost
-          /* $ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+           // $fileUser_IP =  $request->ip();                                         // use if on localhost
+          $ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
               $ip_address = json_decode($ip_address);                             //to network to get real IP
               foreach($ip_address as $key => $value){
                  $realip = $value;
-             } */
+             } 
             $request->file->storeAs('public/upload', $filename);
             $file = new Upload();
             $file->name = $filename;
             $file->size = $filesize;
             $file->user_id = $user_id;
-            //$file->User_Ip = $realip;    // use if online
-            $file->User_Ip = $fileUser_IP;    // use if on localhost
+            $file->User_Ip = $realip;    // use if online
+            //$file->User_Ip = $fileUser_IP;    // use if on localhost
             $file->Device_Browser =  $browser;
             $file->Device_platform = $platform;
             $file->save();
@@ -648,8 +653,6 @@ class StudentController extends Controller
 
         $report->save();
 
-        $User_IP = $request->getClientIp(); 
-
         $journal = new Journal();
         $journal->user_id = $user_id;
         $journal->field_supervisor_id = $field_id;
@@ -658,7 +661,7 @@ class StudentController extends Controller
         $journal->task_in_progress = $request['task_in_progress'];
         $journal->next_day_tasks = $request['next_day_tasks'];
         $journal->problems = $request['problems'];
-        $journal->User_Ip = $User_IP;     // use if on localhost
+        $journal->User_Ip = $fileUser_IP;     // use if on localhost
      // $journal->User_Ip = $realip;    // use if online
         $journal->Device_Browser_Detail = $Device_Browser_detail;
         $journal->save();
@@ -679,4 +682,48 @@ class StudentController extends Controller
         $ipv = $value;
         echo "Ip is: ", $ipv;
    }
+
+    $urlTemp = 'https://api.ip2location.com/v2/?' . 'ip=%s&key=demo' . '&package=WS24&format=json';
+        $ip = $realip;
+        $url = sprintf($urlTemp, $ip);
+        $Json = file_get_contents($url);
+        $geoLocation = json_decode($Json, true );
+       
+         foreach($geoLocation as $key => $value){
+               if($key == 'country_code'){
+                $country_code = $value;
+              }if($key == 'country_name'){
+                  $country_name = $value;
+              }if($key == 'region_name'){
+                  $region_name = $value;
+              }if($key == 'city_name'){
+                  $city_name = $value;
+              }if($key == 'latitude'){
+                  $latitude = $value;
+              }if($key == 'longitude'){
+                  $longitude = $value;
+              }if($key == 'time_zone'){
+                  $time_zone = $value;
+              }if($key == 'net_speed'){
+                $net_speed = $value;
+            }   if($key == 'idd_code'){
+                  $idd_code = $value;
+              }if($key == 'area_code'){
+                  $area_code = $value;
+              }    
+         }
+         $location = new Location();
+         $location->ip_addr =  $ip;
+         $location->user_id = $user_id;
+         $location->country_code  = $country_code;
+         $location->country_name = $country_name;
+         $location->region_name = $region_name;
+         $location->city_name = $city_name;
+         $location->net_speed = $net_speed;
+         $location->area_code  = $area_code ;
+         $location->latitude = $latitude;
+         $location->longitude = $longitude;
+         $location->time_zone = $time_zone;
+
+         $location->save();
          */
