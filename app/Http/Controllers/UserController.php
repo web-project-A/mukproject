@@ -140,17 +140,20 @@ class UserController extends Controller
             case 2:
                 return redirect('/Regional');
                 break;
-            case 4:
+            case 5:
                 return redirect('/Academic');
                 break;
-            case 3:
+            case 4:
                 return redirect('/Department');
                 break;
-            case 5:
+            case 6:
                 return redirect('/Field');
                 break;
-            case 6:
+            case 7:
                 return redirect('/Student');
+                break;
+            case 3;
+                return redirect('/HeadofDepartment');
                 break;
             case 1:
                 return redirect('/Overall');

@@ -21,7 +21,7 @@
                             </div>
                         @endif
 
-                    <div class="form-group"><label for="date" class=" form-control-label">{{ __("Date") }}</label><input name="date" value="{{ old('date') }}" type="date" id="date" required class="form-control @error('date') is-invalid @enderror">
+                    <div class="form-group"><label for="date" class=" form-control-label">{{ __("Week Ending") }}</label><input name="date" value="{{ old('date') }}" type="date" id="date" required class="form-control @error('date') is-invalid @enderror">
                         @error('date')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

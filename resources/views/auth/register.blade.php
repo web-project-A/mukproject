@@ -50,14 +50,13 @@
                             <label for="user_type" class="col-md-4 col-form-label text-md-right">{{ __('Type of User') }}</label>
 
                             <div class="col-md-6">
-                                <select onchange="checkIfStudent()" id="user_type" type="text" class="form-control @error('user_type') is-invalid @enderror" name="user_type" value="{{ old('user_type') }}" required autocomplete="user_type" autofocus>
-                                    <option id="" value="">Choose User Type</option>
-                                    <option id="Student" value="Student">Student</option>
-                                    <option id="Faculty Member" value="Faculty Member">Faculty Member</option>
+                                <select onchange="checkIfStudent()" onmouseover="checkIfStudent()" id="user_type" type="text" class="form-control @error('std_number') is-invalid @enderror" name="user_type" value="{{ old('user_type') }}" required autocomplete="user_type" autofocus>
+                                    <option id="" value="">Select User Type</option>
+                                    <option id="Student" value="Student" {{ old('user_type') == "Student" ? 'selected' : '' }}>Student</option>
+                                    <option id="Faculty Member" value="Faculty Member" {{ old('user_type') == "Faculty Member" ? 'selected' : '' }}>Faculty Member</option>
                                 </select>
-                                @error('user_type')
+                                @error('std_number')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -68,7 +67,7 @@
                                 <label for="std_number" class="col-md-4 col-form-label text-md-right">{{ __('Student Number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="std_number" type="text" class="form-control @error('std_number') is-invalid @enderror" name="std_number" value="{{ old('std_number') }}" required autocomplete="std_number" autofocus>
+                                    <input id="std_number" type="text" class="form-control @error('std_number') is-invalid @enderror" name="std_number" value="{{ old('std_number') }}" autocomplete="std_number" autofocus>
 
                                     @error('std_number')
                                         <span class="invalid-feedback" role="alert">
@@ -82,7 +81,7 @@
                                 <label for="reg_number" class="col-md-4 col-form-label text-md-right">{{ __('Registration Number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="reg_number" type="text" class="form-control @error('reg_number') is-invalid @enderror" name="reg_number" value="{{ old('reg_number') }}" required autocomplete="reg_number" autofocus>
+                                    <input id="reg_number" type="text" class="form-control @error('reg_number') is-invalid @enderror" name="reg_number" value="{{ old('reg_number') }}" autocomplete="reg_number" autofocus>
 
                                     @error('reg_number')
                                         <span class="invalid-feedback" role="alert">
@@ -96,8 +95,12 @@
                                 <label for="course" class="col-md-4 col-form-label text-md-right">{{ __('Course') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="course" type="text" class="form-control @error('course') is-invalid @enderror" name="course" value="{{ old('course') }}" required autocomplete="course" autofocus>
-
+                                    <select id="course" type="text" class="form-control @error('course') is-invalid @enderror" name="course" value="{{ old('course') }}" autocomplete="course" autofocus>
+                                        <option value="">Select Course</option>
+                                        <option value="BSC" {{ old('course') == "BSC" ? 'selected' : '' }}>BSC</option>
+                                        <option value="BSSE" {{ old('course') == "BSSE" ? 'selected' : '' }}>BSSE</option>
+                                        <option value="BIST" {{ old('course') == "BIST" ? 'selected' : '' }}>BIST</option>
+                                    </select>
                                     @error('course')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -112,8 +115,8 @@
 
                             <div class="col-md-6">
                                 <select id="gender" type="text" class="form-control @error('gender') is-invalid @enderror" name="gender" value="{{ old('gender') }}" required autocomplete="gender" autofocus>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                    <option value="Male" {{ old('gender') == "Male" ? 'selected' : '' }}>Male</option>
+                                    <option value="Female" {{ old('gender') == "Female" ? 'selected' : '' }}>Female</option>
                                 </select>
                                 @error('gender')
                                     <span class="invalid-feedback" role="alert">
@@ -124,46 +127,20 @@
                         </div>
 
                         <div class="form-group row">
-
                             <label for="phoneCode" class="col-md-4 col-form-label text-md-right">{{ __('Phone Code') }}</label>
                             <div class="col-md-6">
-
-                                <select id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode" autofocus>
-                                      <option value="+256">+256</option>
-                                      <option value="+254">+254</option>
-                                      <option value="+257">+255</option>
-                                      <option value="+253">+250</option>
-                                      <option value="+253">+263</option>
-                                      <option value="+253">+258</option>
-                                      <option value="+253">+248</option>
-                                      <option value="+253">+257</option>
-                                      <option value="+253">+20</option>
-                                      <option value="+253">+233</option>
-                                      <option value="+253">+234</option>
-                                      <option value="+253">+211</option>
-                                      <option value="+253">+27</option>
-                                      <option value="+253">+221</option>
-                                      <option value="+253">+237</option>
-                                      <option value="+253">+267</option>
-                                      <option value="+253">+244</option>
-                                      <option value="+253">+86</option>
-                                      <option value="+253">+91</option>
-                                    </select>
-
-
-                                @error('number')
+                                <input id="phoneCode" type="text"  name="phoneCode" class="form-control @error('phoneCode') is-invalid @enderror" value="{{ old('phoneCode')}}" required autocomplete="phoneCode" placeholder="+256" autofocus>
+                                @error('phoneCode')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
-                          <div class="form-group row">
 
+                          <div class="form-group row">
                             <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
                             <div class="col-md-6">
-
-
                                 <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
 
                                 @error('number')

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Auth;
 
 use Illuminate\Http\Request;
+use App\Mail\sendMail;
+use Illuminate\Support\Facades\Mail;
+
 use App\Student;
 use App\Organisation;
 use App\Region;
@@ -18,8 +21,8 @@ class FieldController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware(['auth', 'verified']);
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
+        //$this->middleware('auth');
     }
 
     public function index()
@@ -108,6 +111,17 @@ class FieldController extends Controller
 
       $request->session()->flash('Success', 'Details have been saved!');
       return redirect()->back();
+    }
+
+    public function sendEmail(Request $request, $email)
+    {
+      $user = Auth::user();
+      $user_id = $user->id;
+      $messages = $request->input('sendEmail');
+      Mail::to($email)->send(new sendMail($messages));
+
+      $request->session()->flash('Success', 'Email has been sent!');
+      return redirect('/Field');
     }
     
 }

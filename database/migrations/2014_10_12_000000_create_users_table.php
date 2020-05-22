@@ -19,10 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('other', 20);
             $table->string('gender', 1)->nullable();
             $table->string('phonenumber', 15);
-            $table->string('email');
+            $table->string('email')->unique();
             $table->integer('role')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('user_approved', 10)->nullable();
+            $table->boolean('user_approved', 10)->nullable();
             $table->string('password')->nullable();
             $table->integer('status_id')->nullable();
             $table->string('Device_Browser', 20)->nullable();

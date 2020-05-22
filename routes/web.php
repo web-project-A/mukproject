@@ -1,8 +1,10 @@
 <?php
 use App\Mail\Registration;
+use App\Mail\sendMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +65,7 @@ Route::get('/Department', 'DepartmentController@index');
 Route::get('/Academic', 'AcademicController@index');
 Route::get('/Field', 'FieldController@index');
 Route::get('/Student', 'StudentController@index');
+Route::get('/HeadofDepartment', 'HeadofDepartmentController@index');
 Route::get('/Student/dailyJournal', 'StudentController@dailyJournal');
 Route::get('/back', 'UserController@back');
 Route::get('/Student/journaledit', 'StudentController@journaledit');
@@ -85,6 +88,12 @@ Route::post('/registration', 'Registration@register');
 Route::post('/registration/{id}', 'Registration@fieldregister');
 Route::post('/Studentplacementedit/{id}', 'StudentController@placementedit');
 Route::post('/fieldFillJournal/{id}', 'FieldController@fieldFillJournal');
+Route::post('/sendEmail/{email}', 'FieldController@sendEmail');
+/*Route::post('/sendEmail/{email}', function (Request $request, $email) {
+    //Mail::to('ttalemwacollins@gmail.com')->send(new Registration($users));
+    $messages = $request->input('sendEmail');
+    return new sendMail($messages);
+});*/
 
 Route::post('StudentController/fetch', 'StudentController@fetch')->name('StudentController.fetch');
 Route::get('/fetch/{field_email}', 'StudentController@match');

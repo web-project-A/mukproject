@@ -43,19 +43,23 @@ class LoginController extends Controller
             $this->redirectTo = '/Regional';
             return $this->redirectTo;
                 break;
-            case 4:
+            case 5:
                     $this->redirectTo = '/Academic';
                 return $this->redirectTo;
                 break;
-            case 3:
+            case 4:
                 $this->redirectTo = '/Department';
                 return $this->redirectTo;
                 break;
-            case 5:
+            case 6:
                     $this->redirectTo = '/Field';
                 return $this->redirectTo;
                 break;
-            case 6:
+            case 3:
+                    $this->redirectTo = '/HeadofDepartment';
+                return $this->redirectTo;
+                break;
+            case 7:
                 $this->redirectTo = '/Student';
                 return $this->redirectTo;
                 break;
@@ -103,7 +107,7 @@ class LoginController extends Controller
             $platform = 'Android';
          }else 
             $platform = 'Other';
-        $ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+        /*$ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
         $ip_address = json_decode($ip_address);                               //to network to get real IP
         foreach($ip_address as $key => $value){
             $realip = $value;
@@ -147,7 +151,7 @@ class LoginController extends Controller
          $location->lat = $latitude;
          $location->lon  = $longitude;
          $location->timezone = $timezone;
-         $location->save();
+         $location->save();*/
         
     }
     
@@ -161,7 +165,7 @@ class LoginController extends Controller
     {
 
         $this->middleware('guest')->except('logout');
-
+        
 
     }
 }

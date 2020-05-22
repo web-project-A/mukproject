@@ -34,22 +34,26 @@ class VerificationController extends Controller
     {
         switch(Auth::user()->role){
             case 2:
-            $this->redirectTo = '/Regional';
-            return $this->redirectTo;
-                break;
-            case 4:
-                    $this->redirectTo = '/Academic';
-                return $this->redirectTo;
-                break;
-            case 3:
-                $this->redirectTo = '/Department';
+                $this->redirectTo = '/Regional';
                 return $this->redirectTo;
                 break;
             case 5:
-                    $this->redirectTo = '/Field';
+                $this->redirectTo = '/Academic';
+                return $this->redirectTo;
+                break;
+            case 4:
+                $this->redirectTo = '/Department';
                 return $this->redirectTo;
                 break;
             case 6:
+                $this->redirectTo = '/Field';
+                return $this->redirectTo;
+                break;
+            case 3:
+                $this->redirectTo = '/HeadofDepartment';
+                return $this->redirectTo;
+                break;
+            case 7:
                 $this->redirectTo = '/Student';
                 return $this->redirectTo;
                 break;

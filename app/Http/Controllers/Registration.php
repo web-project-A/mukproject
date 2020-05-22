@@ -54,7 +54,7 @@ class Registration extends Controller
                 'std_number' => 'required|string|max:10|min:10|unique:students',
                 'reg_number' => 'required|string|max:255|unique:students',
             ]);
-            $role = 6;
+            $role = 7;
 
             $user = new User();
             $user->fname = $fname;
@@ -63,7 +63,7 @@ class Registration extends Controller
             $user->gender = $gender;
             $user->phonenumber = $phonenumber;
             $user->email = $request['email'];
-            $user->user_approved = 'True';
+            $user->user_approved = 1;
             $user->password = bcrypt($request['password']);
             $user->save();
 
@@ -80,40 +80,14 @@ class Registration extends Controller
             $stud->user_id = $user_id;
             $stud->save();
             return redirect('/')->with('Success', 'You have been Registered!');
-        } 
-        elseif($request['user_type'] == 'Field Supervisor')
-        {
-            $role = 5;
-
-            $user = new User();
-            $user->fname = $request['fname'];
-            $user->other = $request['other'];
-            $user->role = $role;
-            $user->gender = $gender;
-            $user->phonenumber = $phonenumber;
-            $user->email = $request['email'];
-            $user->password = bcrypt($request['password']);
-            $user->save();
-
-            $users = DB::table('users')->where('fname', $fname)->where('other', $other)->get();
-            foreach($users as $user){
-                $user_id = $user->id;
-            }
-
-            $field_supervisor = new Field_supervisor;
-            $field_supervisor->user_id = $user_id;
-            $field_supervisor->save();
-    
-            return redirect('/')->with('Success', 'You have been Registered!');
-        }
-        else
-        {
+        }else{
             $user = new User();
             $user->fname = $request['fname'];
             $user->other = $request['other'];
             $user->gender = $gender;
             $user->phonenumber = $phonenumber;
             $user->email = $request['email'];
+            $user->user_approved = 1;
             $user->password = bcrypt($request['password']);
             $user->save();
             return redirect('/')->with('Success', 'You have been Registered!');

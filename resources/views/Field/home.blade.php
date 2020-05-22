@@ -8,6 +8,15 @@
 <div class="container-fluid">
 
   <!-- Page Heading -->
+  @if(session()->has('Success'))
+        <div class="alert alert-success alert-block" role="">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+                <div class="card-body">
+                    {{session()->get('Success')}}
+                </div>
+        </div>
+    @endif
+    
   @if(!empty($journals))
     <h1 class="h3 mb-2 text-gray-800">STUDENTS</h1>
     <!-- DataTales Example -->

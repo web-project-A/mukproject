@@ -26,16 +26,15 @@ class StudentController extends Controller
     public function __construct()
     {
        $this->middleware(['auth', 'verified']);
-       //$this->middleware('auth');
     }
    
     public function index(Request $request)
     {  
-        $ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
+        /*$ip_address = file_get_contents('https://api.ipify.org?format=json'); // use if connected 
         $ip_address = json_decode($ip_address);                             //to network to get real IP
         foreach($ip_address as $key => $value){
            $realip = $value;
-        } 
+        } */
         $user = Auth::user();
         $user_id = $user->id;
 
@@ -151,7 +150,7 @@ class StudentController extends Controller
             'phonenumber' => 'required|min:9|max:14',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'email' => 'required|email|string|max:255'
+            'email' => 'required|email|string|max:255|unique:users'
         ]);
 
         $phoneCode = $request['phoneCode'];
@@ -212,7 +211,8 @@ class StudentController extends Controller
             $user->other = $other;
             $user->phonenumber = $phonenumber;
             $user->email = $field_email;
-            $user->role = 5;
+            $user->role = 6;
+            $user->user_approved = 1;
             $user->save();
 
             $users = DB::select("select * from users where email='$field_email'");
@@ -343,7 +343,8 @@ class StudentController extends Controller
             $user->other = $other;
             $user->phonenumber = $phonenumber;
             $user->email = $field_email;
-            $user->role = 5;
+            $user->role = 6;
+            $user->user_approved = 1;
             $user->save();
 
             $users = DB::select("select * from users where email='$field_email'");
@@ -639,19 +640,6 @@ class StudentController extends Controller
           foreach($ip_address as $key => $value){
              $realip = $value;
          } */
-        
-        $report = new Report();
-        $report->user_id = $user_id;
-        $report->date = $request['date'];
-        $report->task_completed = $request['task_completed'];
-        $report->task_in_progress = $request['task_in_progress'];
-        $report->next_day_tasks = $request['next_day_tasks'];
-        $report->problems = $request['problems'];
-        $report->User_Ip = $fileUser_IP;  // use if on localhost
-     // $report->User_Ip = $realip;    // use if online
-        $report->Device_Browser_Detail = $Device_Browser_detail;
-
-        $report->save();
 
         $journal = new Journal();
         $journal->user_id = $user_id;

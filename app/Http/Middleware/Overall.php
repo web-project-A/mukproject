@@ -24,20 +24,24 @@ class Overall
             return redirect()->route('Overall');
         }
 
-        if (Auth::user()->role == 5) {
+        if (Auth::user()->role == 6) {
             return redirect()->route('Field');
         }
 
-        if (Auth::user()->role == 6) {
+        if (Auth::user()->role == 7) {
             return redirect()->route('Student');
         }
 
-        if (Auth::user()->role == 4) {
+        if (Auth::user()->role == 5) {
             return redirect()->route('Academic');
         }
 
+        if (Auth::user()->role == 4) {
+            return redirect()->route('Department');
+        }
+
         if (Auth::user()->role == 3) {
-            return $next($request);
+            return redirect()->route('HeadofDepartment');
         }
 
         if (Auth::user()->role == 2) {
